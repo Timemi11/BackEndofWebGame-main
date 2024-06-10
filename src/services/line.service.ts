@@ -122,179 +122,193 @@ export class LineService {
   }
 
   static async sendMessageToLine(userId: string, body: any) {
-    const { prod_id, url } = body;
-    const products = await ProductModel.findById(prod_id);
-    if (products) {
-      client.pushMessage({
-        to: userId,
-        messages: [
-          {
-            type: "flex",
-            altText: "รหัสสินค้า " + prod_id,
-            contents: {
-              type: "bubble",
-              hero: {
-                type: "image",
-                url: products.prod_img,
-                size: "full",
-                aspectRatio: "20:13",
-                aspectMode: "cover",
-                action: {
-                  type: "uri",
-                  uri: url,
-                },
-              },
-              body: {
-                type: "box",
-                layout: "vertical",
-                contents: [
-                  {
-                    type: "text",
-                    text: products.prod_name,
-                    weight: "bold",
-                    size: "xxl",
-                  },
-                  {
-                    type: "box",
-                    layout: "vertical",
-                    margin: "lg",
-                    spacing: "md",
-                    contents: [
-                      {
-                        type: "box",
-                        layout: "vertical",
-                        spacing: "none",
-                        contents: [
-                          {
-                            type: "box",
-                            layout: "vertical",
-                            contents: [
-                              {
-                                type: "text",
-                                text: "รายละเอียด",
-                                weight: "bold",
-                                size: "xl",
-                              },
-                            ],
-                          },
-                          {
-                            type: "box",
-                            layout: "vertical",
-                            contents: [
-                              {
-                                type: "text",
-                                text: products.prod_desc,
-                                size: "md",
-                                margin: "none",
-                                style: "italic",
-                                action: {
-                                  type: "uri",
-                                  uri: url,
-                                  label: "Our Website",
-                                },
-                                color: "#9290C3",
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-              footer: {
-                type: "box",
-                layout: "horizontal",
-                contents: [
-                  {
-                    type: "box",
-                    layout: "vertical",
-                    contents: [
-                      {
-                        type: "box",
-                        layout: "vertical",
-                        contents: [
-                          {
-                            type: "text",
-                            text: "ราคา",
-                            size: "md",
-                            color: "#000000",
-                            weight: "bold",
-                          },
-                        ],
-                      },
-                      {
-                        type: "box",
-                        layout: "vertical",
-                        contents: [
-                          {
-                            type: "box",
-                            layout: "vertical",
-                            contents: [
-                              {
-                                type: "text",
-                                text:
-                                  "จาก " +
-                                  (
-                                    products.prod_price +
-                                    (products.prod_price * 50) / 100
-                                  ).toFixed(0) +
-                                  " บาท",
-                                style: "italic",
-                                size: "sm",
-                                decoration: "line-through",
-                                align: "center",
-                                color: "#B31312",
-                              },
-                            ],
-                          },
-                          {
-                            type: "text",
-                            text:
-                              "ลดเหลือ " +
-                              products.prod_price.toFixed(0) +
-                              " บาท",
-                            color: "#22c55e",
-                            size: "md",
-                            style: "normal",
-                            weight: "bold",
-                            align: "center",
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    type: "box",
-                    layout: "vertical",
-                    contents: [
-                      {
-                        type: "button",
-                        action: {
-                          type: "message",
-                          label: "ยืนยัน",
-                          text: "รอดำเนินการ...",
-                        },
-                        color: "#ffffff",
-                      },
-                    ],
-                    backgroundColor: "#6842FF",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cornerRadius: "xxl",
-                    borderColor: "#000000",
-                    borderWidth: "none",
-                  },
-                ],
+    let {
+      prod_id,
+      prod_img,
+      prod_name,
+      prod_desc,
+      prod_beforeprice,
+      prod_price,
+      url,
+      steamurl,
+    } = body;
+
+    if (
+      prod_price === 0 ||
+      prod_price === null ||
+      prod_beforeprice === 0 ||
+      prod_beforeprice === null
+    ) {
+      prod_beforeprice = "-";
+      prod_price = "ฟรี";
+    } else if (prod_beforeprice === prod_price) {
+      prod_beforeprice = "-";
+      prod_price = "ราคา " + (prod_price / 100).toFixed(0) + " บาท";
+    } else {
+      prod_price = "ลดเหลือ " + (prod_price / 100).toFixed(0) + " บาท";
+      prod_beforeprice = "จาก " + (prod_beforeprice / 100).toFixed(0) + " บาท";
+    }
+
+    client.pushMessage({
+      to: userId,
+      messages: [
+        {
+          type: "flex",
+          altText: "รหัสสินค้า " + prod_id,
+          contents: {
+            type: "bubble",
+            hero: {
+              type: "image",
+              url: prod_img,
+              size: "full",
+              aspectRatio: "20:13",
+              aspectMode: "cover",
+              action: {
+                type: "uri",
+                uri: url,
               },
             },
+            body: {
+              type: "box",
+              layout: "vertical",
+              contents: [
+                {
+                  type: "text",
+                  text: prod_name,
+                  weight: "bold",
+                  size: "xxl",
+                },
+                {
+                  type: "box",
+                  layout: "vertical",
+                  margin: "lg",
+                  spacing: "md",
+                  contents: [
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      spacing: "none",
+                      contents: [
+                        {
+                          type: "box",
+                          layout: "vertical",
+                          contents: [
+                            {
+                              type: "text",
+                              text: "รายละเอียด",
+                              weight: "bold",
+                              size: "xl",
+                            },
+                          ],
+                        },
+                        {
+                          type: "box",
+                          layout: "vertical",
+                          contents: [
+                            {
+                              type: "text",
+                              text: prod_desc,
+                              size: "md",
+                              margin: "none",
+                              style: "italic",
+                              action: {
+                                type: "uri",
+                                uri: url,
+                                label: "Our Website",
+                              },
+                              color: "#9290C3",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            footer: {
+              type: "box",
+              layout: "horizontal",
+              contents: [
+                {
+                  type: "box",
+                  layout: "vertical",
+                  contents: [
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [
+                        {
+                          type: "text",
+                          text: "ราคา",
+                          size: "md",
+                          color: "#000000",
+                          weight: "bold",
+                        },
+                      ],
+                    },
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [
+                        {
+                          type: "box",
+                          layout: "vertical",
+                          contents: [
+                            {
+                              type: "text",
+                              text: prod_beforeprice,
+                              style: "italic",
+                              size: "sm",
+                              decoration: "line-through",
+                              align: "center",
+                              color: "#B31312",
+                            },
+                          ],
+                        },
+                        {
+                          type: "text",
+                          text: prod_price,
+                          color: "#22c55e",
+                          size: "md",
+                          style: "normal",
+                          weight: "bold",
+                          align: "center",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: "box",
+                  layout: "vertical",
+                  contents: [
+                    {
+                      type: "button",
+                      action: {
+                        type: "uri",
+                        label: "ยืนยัน",
+                        uri: `${steamurl}${prod_id}`,
+                      },
+                      color: "#ffffff",
+                    },
+                  ],
+                  backgroundColor: "#6842FF",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cornerRadius: "xxl",
+                  borderColor: "#000000",
+                  borderWidth: "none",
+                },
+              ],
+            },
           },
-          {
-            type: "text",
-            text: `รายละเอียด \n${products.prod_desc}`,
-          },
-        ],
-      });
-    }
+        },
+        {
+          type: "text",
+          text: `${steamurl}${prod_id}`,
+        },
+      ],
+    });
   }
 }
