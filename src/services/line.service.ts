@@ -17,7 +17,7 @@ export class LineService {
 
       if (message.type === "text") {
         if (message.text === "รายละเอียด") {
-          client.replyMessage({
+          return client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -27,7 +27,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "สินค้า") {
-          client.replyMessage({
+          return client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -37,7 +37,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "โปรโมชั่น") {
-          client.replyMessage({
+          return client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -47,7 +47,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "ข้อมูลของฉัน") {
-          client.getProfile(event.source.userId).then((proflie) => {
+          return client.getProfile(event.source.userId).then((proflie) => {
             client.replyMessage({
               replyToken: event.replyToken,
               messages: [
@@ -59,7 +59,7 @@ export class LineService {
             });
           });
         } else if (message.text === "รอดำเนินการ...") {
-          client.getProfile(event.source.userId).then((proflie) => {
+          return client.getProfile(event.source.userId).then((proflie) => {
             client.replyMessage({
               replyToken: event.replyToken,
               messages: [
@@ -71,7 +71,7 @@ export class LineService {
             });
           });
         } else {
-          client.replyMessage({
+          return client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -149,7 +149,7 @@ export class LineService {
       prod_beforeprice = "จาก " + (prod_beforeprice / 100).toFixed(0) + " บาท";
     }
 
-    client.pushMessage({
+    return client.pushMessage({
       to: userId,
       messages: [
         {
