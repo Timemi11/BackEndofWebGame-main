@@ -8,7 +8,7 @@ const client = new line.messagingApi.MessagingApiClient({
 });
 
 export class LineService {
-  static sendWebhook(body: any) {
+  static async sendWebhook(body: any) {
     const event = body;
 
     if (event.type === "message") {

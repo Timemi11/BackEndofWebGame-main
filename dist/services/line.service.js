@@ -44,118 +44,120 @@ const client = new line.messagingApi.MessagingApiClient({
 });
 class LineService {
     static sendWebhook(body) {
-        const event = body;
-        if (event.type === "message") {
-            const message = event.message;
-            if (message.type === "text") {
-                if (message.text === "รายละเอียด") {
-                    client.replyMessage({
-                        replyToken: event.replyToken,
-                        messages: [
-                            {
-                                type: "text",
-                                text: "แชทนี้จะเกี่ยวกับเกม สามารถ ดูข้อมูล ราคา และจะพัฒนาต่อไปเรื่อยๆ",
-                            },
-                        ],
-                    });
-                }
-                else if (message.text === "สินค้า") {
-                    client.replyMessage({
-                        replyToken: event.replyToken,
-                        messages: [
-                            {
-                                type: "text",
-                                text: "ยินดีต้อนรับสู่ GameProduct กดลิ้งได้เลยน้าาา \n=> https://liff.line.me/2005244347-lY246dm4 ",
-                            },
-                        ],
-                    });
-                }
-                else if (message.text === "โปรโมชั่น") {
-                    client.replyMessage({
-                        replyToken: event.replyToken,
-                        messages: [
-                            {
-                                type: "text",
-                                text: "ไม่มีโปรงับ เสียใจด้วย--",
-                            },
-                        ],
-                    });
-                }
-                else if (message.text === "ข้อมูลของฉัน") {
-                    client.getProfile(event.source.userId).then((proflie) => {
+        return __awaiter(this, void 0, void 0, function* () {
+            const event = body;
+            if (event.type === "message") {
+                const message = event.message;
+                if (message.type === "text") {
+                    if (message.text === "รายละเอียด") {
                         client.replyMessage({
                             replyToken: event.replyToken,
                             messages: [
                                 {
                                     type: "text",
-                                    text: `ชื่อของคุณ = ${proflie.displayName}\nสเตตัสของคุณ = ${proflie.statusMessage}`,
+                                    text: "แชทนี้จะเกี่ยวกับเกม สามารถ ดูข้อมูล ราคา และจะพัฒนาต่อไปเรื่อยๆ",
                                 },
                             ],
                         });
-                    });
-                }
-                else if (message.text === "รอดำเนินการ...") {
-                    client.getProfile(event.source.userId).then((proflie) => {
+                    }
+                    else if (message.text === "สินค้า") {
                         client.replyMessage({
                             replyToken: event.replyToken,
                             messages: [
                                 {
                                     type: "text",
-                                    text: `เราขอขอบคุณ คุณ${proflie.displayName}ที่สั่งซื้อสินค้าจากทางเรา...`,
+                                    text: "ยินดีต้อนรับสู่ GameProduct กดลิ้งได้เลยน้าาา \n=> https://liff.line.me/2005244347-lY246dm4 ",
                                 },
                             ],
                         });
-                    });
-                }
-                else {
-                    client.replyMessage({
-                        replyToken: event.replyToken,
-                        messages: [
-                            {
-                                type: "text",
-                                text: "ยินดีต้อนรับสู่ GameProduct ลองพิมพ์หรือกดที่ quickreply ได้เลย...",
-                                quickReply: {
-                                    items: [
-                                        {
-                                            type: "action",
-                                            action: {
-                                                type: "message",
-                                                label: "รายละเอียด",
-                                                text: "รายละเอียด",
-                                            },
-                                        },
-                                        {
-                                            type: "action",
-                                            action: {
-                                                type: "message",
-                                                label: "ข้อมูลของฉัน",
-                                                text: "ข้อมูลของฉัน",
-                                            },
-                                        },
-                                        {
-                                            type: "action",
-                                            action: {
-                                                type: "message",
-                                                label: "สินค้า",
-                                                text: "สินค้า",
-                                            },
-                                        },
-                                        {
-                                            type: "action",
-                                            action: {
-                                                type: "message",
-                                                label: "โปรโมชั่น",
-                                                text: "โปรโมชั่น",
-                                            },
-                                        },
-                                    ],
+                    }
+                    else if (message.text === "โปรโมชั่น") {
+                        client.replyMessage({
+                            replyToken: event.replyToken,
+                            messages: [
+                                {
+                                    type: "text",
+                                    text: "ไม่มีโปรงับ เสียใจด้วย--",
                                 },
-                            },
-                        ],
-                    });
+                            ],
+                        });
+                    }
+                    else if (message.text === "ข้อมูลของฉัน") {
+                        client.getProfile(event.source.userId).then((proflie) => {
+                            client.replyMessage({
+                                replyToken: event.replyToken,
+                                messages: [
+                                    {
+                                        type: "text",
+                                        text: `ชื่อของคุณ = ${proflie.displayName}\nสเตตัสของคุณ = ${proflie.statusMessage}`,
+                                    },
+                                ],
+                            });
+                        });
+                    }
+                    else if (message.text === "รอดำเนินการ...") {
+                        client.getProfile(event.source.userId).then((proflie) => {
+                            client.replyMessage({
+                                replyToken: event.replyToken,
+                                messages: [
+                                    {
+                                        type: "text",
+                                        text: `เราขอขอบคุณ คุณ${proflie.displayName}ที่สั่งซื้อสินค้าจากทางเรา...`,
+                                    },
+                                ],
+                            });
+                        });
+                    }
+                    else {
+                        client.replyMessage({
+                            replyToken: event.replyToken,
+                            messages: [
+                                {
+                                    type: "text",
+                                    text: "ยินดีต้อนรับสู่ GameProduct ลองพิมพ์หรือกดที่ quickreply ได้เลย...",
+                                    quickReply: {
+                                        items: [
+                                            {
+                                                type: "action",
+                                                action: {
+                                                    type: "message",
+                                                    label: "รายละเอียด",
+                                                    text: "รายละเอียด",
+                                                },
+                                            },
+                                            {
+                                                type: "action",
+                                                action: {
+                                                    type: "message",
+                                                    label: "ข้อมูลของฉัน",
+                                                    text: "ข้อมูลของฉัน",
+                                                },
+                                            },
+                                            {
+                                                type: "action",
+                                                action: {
+                                                    type: "message",
+                                                    label: "สินค้า",
+                                                    text: "สินค้า",
+                                                },
+                                            },
+                                            {
+                                                type: "action",
+                                                action: {
+                                                    type: "message",
+                                                    label: "โปรโมชั่น",
+                                                    text: "โปรโมชั่น",
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
+                            ],
+                        });
+                    }
                 }
             }
-        }
+        });
     }
     static sendMessageToLine(userId, body) {
         return __awaiter(this, void 0, void 0, function* () {
