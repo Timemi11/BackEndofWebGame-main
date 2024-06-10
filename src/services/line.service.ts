@@ -8,7 +8,7 @@ const client = new line.messagingApi.MessagingApiClient({
 });
 
 export class LineService {
-  static async sendWebhook(body: any) {
+  static sendWebhook(body: any) {
     const event = body;
 
     if (event.type === "message") {
@@ -120,7 +120,7 @@ export class LineService {
     }
   }
 
-  static async sendMessageToLine(userId: string, body: any) {
+  static sendMessageToLine(userId: string, body: any) {
     let {
       prod_id,
       prod_img,
