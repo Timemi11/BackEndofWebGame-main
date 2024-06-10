@@ -120,7 +120,7 @@ export class LineService {
     }
   }
 
-  static sendMessageToLine(userId: string, body: any) {
+  static async sendMessageToLine(userId: string, body: any) {
     let {
       prod_id,
       prod_img,
