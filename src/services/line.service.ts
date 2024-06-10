@@ -16,7 +16,7 @@ export class LineService {
 
       if (message.type === "text") {
         if (message.text === "รายละเอียด") {
-          await client.replyMessage({
+          client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -26,7 +26,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "สินค้า") {
-          await client.replyMessage({
+          client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -36,7 +36,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "โปรโมชั่น") {
-          await client.replyMessage({
+          client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -58,7 +58,7 @@ export class LineService {
             });
           });
         } else if (message.text === "รอดำเนินการ...") {
-          await client.getProfile(event.source.userId).then((proflie) => {
+          client.getProfile(event.source.userId).then((proflie) => {
             client.replyMessage({
               replyToken: event.replyToken,
               messages: [
@@ -70,7 +70,7 @@ export class LineService {
             });
           });
         } else {
-          await client.replyMessage({
+          client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -148,7 +148,7 @@ export class LineService {
       prod_beforeprice = "จาก " + (prod_beforeprice / 100).toFixed(0) + " บาท";
     }
 
-    await client.pushMessage({
+    client.pushMessage({
       to: userId,
       messages: [
         {
