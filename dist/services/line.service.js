@@ -47,8 +47,6 @@ class LineService {
     static sendWebhook(body) {
         return __awaiter(this, void 0, void 0, function* () {
             const event = body;
-            if (!event)
-                return event.sendStatus(200).end();
             if (event.type === "message") {
                 const message = event.message;
                 if (message.type === "text") {

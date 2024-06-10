@@ -16,6 +16,8 @@ class LineController {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
             const body = (_a = req.body.events[0]) !== null && _a !== void 0 ? _a : undefined;
+            if (!body)
+                return res.sendStatus(200).end();
             const result = yield line_service_1.LineService.sendWebhook(body);
             return res.status(200).json(result); //optional return
         });
