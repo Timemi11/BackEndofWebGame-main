@@ -4,15 +4,5 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const productSchema = new mongoose_1.default.Schema({
-    pictureUrl: String,
-    userId: String,
-    displayName: String,
-    statusMessage: String,
-    prod_img: String,
-    prod_name: String,
-    prod_desc: String,
-    prod_price: Number,
-    update_at: { type: Date, default: Date.now },
-});
-exports.default = mongoose_1.default.model("Product", productSchema);
+const product_schema_1 = require("../schema/product.schema");
+exports.default = mongoose_1.default.model("Product", product_schema_1.productSchema);

@@ -30,6 +30,7 @@ app.get("/ping", (_req, res) => {
 });
 app.use(product_route_1.default);
 app.use(survey_route_1.default);
+// ! ติด Unauth แล้ว status code 401
 app.use(line_route_1.default);
 // app.get("/products", async (_req: Request, res: Response) => {
 //   const data = await Product.find({})
@@ -207,6 +208,7 @@ app.use(line_route_1.default);
 //     }
 //   }
 // });
+// !หลัง : คือ params ถ้าจะรับ query ก็ต้อง ใช้ req.query
 // app.post("/sent-gameproduct/:userId", async (req: Request, res: Response) => {
 //   const userId = req.params.userId;
 //   console.log(req.body);

@@ -12,20 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LineController = void 0;
 const line_service_1 = require("../services/line.service");
 class LineController {
-    static sendMessageToLine(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const userId = req.params.userId;
-            const body = req.body;
-            const result = yield line_service_1.LineService.sendMessageToLine(userId, body);
-            return result;
-        });
-    }
     static sendWebhook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
             const body = (_a = req.body.events[0]) !== null && _a !== void 0 ? _a : undefined;
             const result = yield line_service_1.LineService.sendWebhook(body);
-            return result;
+            return res.status(200).json(result); //optional return
+        });
+    }
+    static sendMessageToLine(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userId = req.params.userId;
+            const body = req.body;
+            const result = yield line_service_1.LineService.sendMessageToLine(userId, body);
+            return res.status(200).json(result); //optional return
         });
     }
 }

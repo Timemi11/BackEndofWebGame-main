@@ -38,6 +38,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LineService = void 0;
 const product_1 = __importDefault(require("../model/product"));
 const line = __importStar(require("@line/bot-sdk"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const client = new line.messagingApi.MessagingApiClient({
     channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
 });

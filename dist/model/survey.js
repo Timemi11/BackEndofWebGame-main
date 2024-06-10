@@ -4,12 +4,5 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const SurveySchema = new mongoose_1.default.Schema({
-    pictureUrl: String,
-    userId: String,
-    displayName: String,
-    statusMessage: String,
-    answers: [{ value: { type: [String], default: [] } }],
-    update_at: { type: Date, default: Date.now },
-});
-exports.default = mongoose_1.default.model("Survey", SurveySchema);
+const survey_schema_1 = require("../schema/survey.schema");
+exports.default = mongoose_1.default.model("Survey", survey_schema_1.SurveySchema);

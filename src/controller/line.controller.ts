@@ -11,12 +11,7 @@ export class LineController {
   static async sendMessageToLine(req: Request, res: Response) {
     const userId = req.params.userId;
     const body = req.body;
-    
-    
-    
     const result = await LineService.sendMessageToLine(userId, body);
-    
-    
     return res.status(200).json(result); //optional return
   }
 }
