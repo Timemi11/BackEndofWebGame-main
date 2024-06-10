@@ -11,7 +11,7 @@ const client = new line.messagingApi.MessagingApiClient({
 export class LineService {
   static async sendWebhook(body: any) {
     const event = body;
-    if (!event) return event.sendStatus(200).end();
+
     if (event.type === "message") {
       const message = event.message;
 

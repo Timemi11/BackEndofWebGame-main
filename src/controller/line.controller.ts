@@ -4,6 +4,7 @@ import { LineService } from "../services/line.service";
 export class LineController {
   static async sendWebhook(req: Request, res: Response) {
     const body = req.body.events[0] ?? undefined;
+    if (!body) return res.sendStatus(200).end();
     const result = await LineService.sendWebhook(body);
     return res.status(200).json(result); //optional return
   }
