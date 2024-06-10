@@ -1,4 +1,3 @@
-import ProductModel from "../model/product";
 import * as line from "@line/bot-sdk";
 import dotenv from "dotenv";
 
@@ -17,7 +16,7 @@ export class LineService {
 
       if (message.type === "text") {
         if (message.text === "รายละเอียด") {
-          return client.replyMessage({
+          await client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -27,7 +26,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "สินค้า") {
-          return client.replyMessage({
+          await client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -37,7 +36,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "โปรโมชั่น") {
-          return client.replyMessage({
+          await client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -47,7 +46,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "ข้อมูลของฉัน") {
-          return client.getProfile(event.source.userId).then((proflie) => {
+          await client.getProfile(event.source.userId).then((proflie) => {
             client.replyMessage({
               replyToken: event.replyToken,
               messages: [
@@ -59,7 +58,7 @@ export class LineService {
             });
           });
         } else if (message.text === "รอดำเนินการ...") {
-          return client.getProfile(event.source.userId).then((proflie) => {
+          await client.getProfile(event.source.userId).then((proflie) => {
             client.replyMessage({
               replyToken: event.replyToken,
               messages: [
@@ -71,7 +70,7 @@ export class LineService {
             });
           });
         } else {
-          return client.replyMessage({
+          await client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -149,7 +148,7 @@ export class LineService {
       prod_beforeprice = "จาก " + (prod_beforeprice / 100).toFixed(0) + " บาท";
     }
 
-    return client.pushMessage({
+    await client.pushMessage({
       to: userId,
       messages: [
         {
