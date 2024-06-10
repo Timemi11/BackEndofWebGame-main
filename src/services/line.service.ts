@@ -46,7 +46,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "ข้อมูลของฉัน") {
-          await client.getProfile(event.source.userId).then((proflie) => {
+          client.getProfile(event.source.userId).then((proflie) => {
             client.replyMessage({
               replyToken: event.replyToken,
               messages: [
