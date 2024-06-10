@@ -6,8 +6,13 @@ export class LineController {
     const body = req.body.events[0] ?? undefined;
     console.log(body);
     if (!body) return res.sendStatus(200).end();
-    const result = await LineService.sendWebhook(body);
-    return res.status(200).json({ success: true, result });
+    try {
+      const result = await LineService.sendWebhook(body);
+      res.status(200).send(result);
+    } catch (error) {
+      console.error("Error in sendWebhook:", error);
+      res.status(500).send("Error in Webhook");
+    }
   }
 
   static async sendMessageToLine(req: Request, res: Response) {
@@ -15,7 +20,12 @@ export class LineController {
     console.log(userId);
     const body = req.body;
     console.log(body);
-    const result = await LineService.sendMessageToLine(userId, body);
-    return res.status(200).json({ success: true, result });
+    try {
+      const result = await LineService.sendMessageToLine(userId, body);
+      res.status(200).json({ message: "Message sent successfully", result });
+    } catch (error) {
+      console.error("Error in sendMessageToLine:", error);
+      res.status(500).json({ error: "Failed to send message" });
+    }
   }
 }
