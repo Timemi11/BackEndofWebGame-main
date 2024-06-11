@@ -4,6 +4,7 @@ import cors from "cors";
 import ProductRoute from "./route/product.route";
 import SurveyRoute from "./route/survey.route";
 import LineRoute from "./route/line.route";
+import UserMemberRoute from "./route/usermember.route"
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -30,6 +31,7 @@ app.get("/ping", (_req: Request, res: Response) => {
 app.use(ProductRoute);
 app.use(SurveyRoute);
 app.use(LineRoute);
+app.use(UserMemberRoute);
 
 app.listen(port, () => {
   return console.log(`Server is listening on ${port}`);
