@@ -9,6 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const product_route_1 = __importDefault(require("./route/product.route"));
 const survey_route_1 = __importDefault(require("./route/survey.route"));
 const line_route_1 = __importDefault(require("./route/line.route"));
+const usermember_route_1 = __importDefault(require("./route/usermember.route"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8080;
 (0, db_1.default)();
@@ -27,6 +28,7 @@ app.get("/ping", (_req, res) => {
 app.use(product_route_1.default);
 app.use(survey_route_1.default);
 app.use(line_route_1.default);
+app.use(usermember_route_1.default);
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}`);
 });
