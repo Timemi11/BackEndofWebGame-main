@@ -33,6 +33,16 @@ class userMemberService {
             return userMember;
         });
     }
+    static findAppId(id, appId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userMember = yield usermember_1.default.findOne({ userId: id });
+            if (userMember) {
+                const appIds = userMember.wishList.filter((item) => item.appId === Number(appId))
+                    .map((item) => item.appId);
+                return appIds;
+            }
+        });
+    }
     static createUserMember(newUserMember) {
         return __awaiter(this, void 0, void 0, function* () {
             const userMember = yield usermember_1.default.create(newUserMember);

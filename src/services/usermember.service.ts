@@ -23,7 +23,6 @@ export class userMemberService{
             .map((item:any)=> item.appId)
             return appIds;
         }
-        
     }
 
     static async createUserMember(newUserMember:any){

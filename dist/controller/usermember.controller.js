@@ -41,6 +41,17 @@ class userMemberController {
             }
         });
     }
+    static findAppId(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let userMember = yield usermember_service_1.userMemberService.findAppId(req.params.id, req.params.appid);
+            if (userMember === null || userMember === void 0 ? void 0 : userMember.length) {
+                res.status(200).json(userMember);
+            }
+            else {
+                res.status(404).json({ message: 'Appid not found' });
+            }
+        });
+    }
     static createProduct(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const userMember = yield usermember_service_1.userMemberService.createUserMember(req.body);
