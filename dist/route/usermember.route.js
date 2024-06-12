@@ -7,6 +7,7 @@ route.get("/usermember", usermember_controller_1.userMemberController.getUserMem
 route.get("/usermember/:id", usermember_controller_1.userMemberController.findUserMemberById);
 route.get("/usermember/userid/:id", usermember_controller_1.userMemberController.findUserMemberByUserId);
 route.get("/usermember/userid/:id/appid/:appid", usermember_controller_1.userMemberController.findAppId);
+route.get("/usermember/userid/:id/appid", usermember_controller_1.userMemberController.findApp);
 route.post("/usermember", usermember_controller_1.userMemberController.createProduct);
 route.put("/usermember/userid/:id", usermember_controller_1.userMemberController.updateUserMember);
 route.delete("/usermember/userid/:id", usermember_controller_1.userMemberController.deleteUserMember);
