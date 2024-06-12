@@ -33,11 +33,11 @@ class userMemberController {
                     res.status(200).json(userMember);
                 }
                 else {
-                    res.status(404).json({ message: 'User not found' });
+                    res.status(404).json({ message: "User not found" });
                 }
             }
             catch (error) {
-                res.status(500).json({ message: 'Internal server error' });
+                res.status(500).json({ message: "Internal server error" });
             }
         });
     }
@@ -54,7 +54,7 @@ class userMemberController {
                 res.status(200).json(userMember);
             }
             else {
-                res.status(404).json({ message: 'Appid not found' });
+                res.status(404).json({ message: "Appid not found" });
             }
         });
     }
@@ -74,6 +74,19 @@ class userMemberController {
         return __awaiter(this, void 0, void 0, function* () {
             const userMember = yield usermember_service_1.userMemberService.deleteUserMember(req.params.id);
             return res.status(200).json(userMember);
+        });
+    }
+    static deleteApp(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const updateResult = yield usermember_service_1.userMemberService.deleteUserMemberApp(req.params.id, req.params.appid);
+                return res.status(200).json(updateResult);
+            }
+            catch (error) {
+                res
+                    .status(500)
+                    .json({ message: "Internal server error", error: error.message });
+            }
         });
     }
 }

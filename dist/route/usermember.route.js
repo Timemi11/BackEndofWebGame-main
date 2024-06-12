@@ -10,5 +10,6 @@ route.get("/usermember/userid/:id/appid/:appid", usermember_controller_1.userMem
 route.get("/usermember/userid/:id/appid", usermember_controller_1.userMemberController.findApp);
 route.post("/usermember", usermember_controller_1.userMemberController.createProduct);
 route.put("/usermember/userid/:id", usermember_controller_1.userMemberController.updateUserMember);
+route.put("/usermember/userid/:id/appid/:appid", usermember_controller_1.userMemberController.deleteApp);
 route.delete("/usermember/userid/:id", usermember_controller_1.userMemberController.deleteUserMember);
 exports.default = route;

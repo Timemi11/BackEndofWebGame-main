@@ -43,7 +43,8 @@ class userMemberService {
         return __awaiter(this, void 0, void 0, function* () {
             const userMember = yield usermember_1.default.findOne({ userId: id });
             if (userMember) {
-                const appIds = userMember.wishList.filter((item) => item.appId === Number(appId))
+                const appIds = userMember.wishList
+                    .filter((item) => item.appId === Number(appId))
                     .map((item) => item.appId);
                 return appIds;
             }
@@ -64,6 +65,13 @@ class userMemberService {
     static deleteUserMember(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const userMember = yield usermember_1.default.findOneAndDelete({ userId: id });
+            return userMember;
+        });
+    }
+    static deleteUserMemberApp(userId, appId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userMember = yield usermember_1.default.findOneAndUpdate({ userId }, { $pull: { wishList: { appId: appId } } }, { new: true } // Return the modified document rather than the original
+            );
             return userMember;
         });
     }
