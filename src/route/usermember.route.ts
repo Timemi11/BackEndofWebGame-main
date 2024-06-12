@@ -6,6 +6,7 @@ const route = Router();
 route.get("/usermember", userMemberController.getUserMember);
 route.get("/usermember/:id", userMemberController.findUserMemberById);
 route.get("/usermember/userid/:id", userMemberController.findUserMemberByUserId);
+route.get("/usermember/userid/:id/appid/:appid",userMemberController.findAppId)
 route.post("/usermember", userMemberController.createProduct);
 route.put("/usermember/userid/:id",userMemberController.updateUserMember);
 route.delete("/usermember/userid/:id",userMemberController.deleteUserMember);

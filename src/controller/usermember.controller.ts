@@ -26,6 +26,16 @@ export class userMemberController{
         }
     }
 
+    static async findAppId(req: Request, res: Response, next: NextFunction){
+        
+        let userMember = await userMemberService.findAppId(req.params.id,req.params.appid);
+        if (userMember?.length) {
+            res.status(200).json(userMember);
+        } else {
+            res.status(404).json({ message: 'Appid not found' });
+        }
+}
+
     static async createProduct(req: Request, res: Response, next: NextFunction){
         const userMember =  await userMemberService.createUserMember(req.body);
         return res.status(200).json(userMember)

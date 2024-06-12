@@ -16,6 +16,16 @@ export class userMemberService{
         return userMember;
     }
 
+    static async findAppId(id:string,appId:string){
+        const userMember = await UserMemberModel.findOne({userId: id})
+        if(userMember){
+            const appIds = userMember.wishList.filter((item: any) => item.appId === Number(appId))
+            .map((item:any)=> item.appId)
+            return appIds;
+        }
+        
+    }
+
     static async createUserMember(newUserMember:any){
         const userMember = await UserMemberModel.create(newUserMember);
         return userMember;
