@@ -26,6 +26,11 @@ export class userMemberController{
         }
     }
 
+    static async findApp(req: Request, res: Response, next: NextFunction){
+        let userMember = await userMemberService.findApp(req.params.id)
+        res.status(200).json(userMember);
+    }
+
     static async findAppId(req: Request, res: Response, next: NextFunction){
         
         let userMember = await userMemberService.findAppId(req.params.id,req.params.appid);

@@ -16,6 +16,11 @@ export class userMemberService{
         return userMember;
     }
 
+    static async findApp(id:string){
+        const userMember = await UserMemberModel.findOne({userId: id})
+        return userMember?.wishList
+    }
+
     static async findAppId(id:string,appId:string){
         const userMember = await UserMemberModel.findOne({userId: id})
         if(userMember){
