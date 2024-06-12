@@ -8,7 +8,7 @@ const PriceSchema: Schema = new Schema({
     displayName: String,
     wishList: [{
       name: String,
-      gameId: Number,
+      appId: Number,
       image: String,
       price: PriceSchema
     }]
