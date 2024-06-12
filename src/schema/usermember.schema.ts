@@ -1,7 +1,15 @@
 import mongoose, { Schema } from "mongoose";
 
-export const UserMemberSchema: Schema = new mongoose.Schema({
-    userId:String,
-    displayName:String,
-    wishList:[{gameId:Number}]
-});
+const PriceSchema: Schema = new Schema({
+    formattedPrice: String
+  });
+  export const UserMemberSchema: Schema = new Schema({
+    userId: String,
+    displayName: String,
+    wishList: [{
+      name: String,
+      gameId: Number,
+      image: String,
+      price: PriceSchema
+    }]
+  });

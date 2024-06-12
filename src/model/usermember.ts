@@ -1,12 +1,20 @@
 import mongoose, { Document } from "mongoose";
 import { UserMemberSchema } from "../schema/usermember.schema";
+
+export type Price = {
+  formattedPrice: string;
+};
 export interface WishList {
-    gameId: number;
+  name: string;
+  appId: number;
+  image: string;
+  price: Price;
   }
 
 export interface UserMemberModel extends Document {
     userId: string;
     displayName: string;
+    formattedPrice: string;
     wishList: WishList[];
 }
 
