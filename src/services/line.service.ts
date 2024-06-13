@@ -18,61 +18,10 @@ export class LineService {
 
     // const steamUrlGame = "https://store.steampowered.com/app/$appId";
 
-    // type: "flex",
-    // altText: "รายการโปรดของคุณ",
-    // contents: {
-    //     type: "bubble",
-    //     size: "giga",
-    //     body: {
-    //       type: "box",
-    //       layout: "vertical",
-    //       contents: [
-    //         {
-    //           type: "text",
-    //           text: "รายการโปรด",
-    //           weight: "bold",
-    //           size: "xxl",
-    //         },
-    //       ],
-    //     },
-    //     footer: {
-    //       type: "box",
-    //       layout: "vertical",
-    //       spacing: "sm",
-    //       contents: [
-    //         {
-    //           type: "box",
-    //           layout: "horizontal",
-    //           contents: [
-    //             {
-    //               type: "text",
-    //               text: item.name, // แสดงชื่อเกม
-    //               align: "start",
-    //               flex: 4,
-    //             },
-    //             {
-    //               type: "text",
-    //               text: "เลือกดู",
-    //               align: "end",
-    //               action: {
-    //                 type: "uri",
-    //                 label: "action",
-    //                 uri: `https://store.steampowered.com/app/${item.appId}`, // ลิงก์เป็นลิงก์ของเกม
-    //               },
-    //             },
-    //           ],
-    //           justifyContent: "flex-start",
-    //           alignItems: "flex-start",
-    //         },
-    //       ],
-    //       flex: 0,
-    //       alignItems: "flex-start",
-    //       justifyContent: "center",
-    //     },
-    // },
-
-    const flexContents =
-      appList?.map((item: any) => ({
+    const flexMessage: any = {
+      type: "flex",
+      altText: "รายการโปรดของคุณ",
+      contents: {
         type: "bubble",
         size: "giga",
         body: {
@@ -85,49 +34,44 @@ export class LineService {
               weight: "bold",
               size: "xxl",
             },
+            // Add more contents if needed within the body
           ],
         },
         footer: {
           type: "box",
           layout: "vertical",
           spacing: "sm",
-          contents: [
-            {
-              type: "box",
-              layout: "horizontal",
-              contents: [
-                {
-                  type: "text",
-                  text: item.name, // แสดงชื่อเกม
-                  align: "start",
-                  flex: 4,
+          contents: appList?.map((item: any) => ({
+            type: "box",
+            layout: "horizontal",
+            contents: [
+              {
+                type: "text",
+                text: item.name, // แสดงชื่อเกม
+                align: "start",
+                flex: 4,
+              },
+              {
+                type: "text",
+                text: "เลือกดู",
+                align: "end",
+                action: {
+                  type: "uri",
+                  label: "action",
+                  uri: `https://store.steampowered.com/app/${item.appId}`, // ลิงก์เป็นลิงก์ของเกม
                 },
-                {
-                  type: "text",
-                  text: "เลือกดู",
-                  align: "end",
-                  action: {
-                    type: "uri",
-                    label: "action",
-                    uri: `https://store.steampowered.com/app/${item.appId}`, // ลิงก์เป็นลิงก์ของเกม
-                  },
-                },
-              ],
-              justifyContent: "flex-start",
-              alignItems: "flex-start",
-            },
-          ],
+              },
+            ],
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+          })),
           flex: 0,
           alignItems: "flex-start",
           justifyContent: "center",
         },
-      })) || [];
-
-    const flexMessage: any = {
-      type: "flex",
-      altText: "รายการโปรดของคุณ",
-      contents: flexContents,
+      },
     };
+    
 
     if (event.type === "message") {
       const message = event.message;
@@ -190,7 +134,7 @@ export class LineService {
         } else if (message.text === "รายการโปรด") {
           client.replyMessage({
             replyToken: event.replyToken,
-            messages: [flexMessage],
+            messages: flexMessage,
           });
         } else {
           client.replyMessage({
