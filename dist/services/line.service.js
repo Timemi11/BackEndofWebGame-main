@@ -51,6 +51,58 @@ class LineService {
             const appList = app === null || app === void 0 ? void 0 : app.wishList;
             const wishListText = (appList === null || appList === void 0 ? void 0 : appList.map((item) => item.name).join(" ")) || "";
             // const steamUrlGame = "https://store.steampowered.com/app/$appId";
+            // type: "flex",
+            // altText: "รายการโปรดของคุณ",
+            // contents: {
+            //     type: "bubble",
+            //     size: "giga",
+            //     body: {
+            //       type: "box",
+            //       layout: "vertical",
+            //       contents: [
+            //         {
+            //           type: "text",
+            //           text: "รายการโปรด",
+            //           weight: "bold",
+            //           size: "xxl",
+            //         },
+            //       ],
+            //     },
+            //     footer: {
+            //       type: "box",
+            //       layout: "vertical",
+            //       spacing: "sm",
+            //       contents: [
+            //         {
+            //           type: "box",
+            //           layout: "horizontal",
+            //           contents: [
+            //             {
+            //               type: "text",
+            //               text: item.name, // แสดงชื่อเกม
+            //               align: "start",
+            //               flex: 4,
+            //             },
+            //             {
+            //               type: "text",
+            //               text: "เลือกดู",
+            //               align: "end",
+            //               action: {
+            //                 type: "uri",
+            //                 label: "action",
+            //                 uri: `https://store.steampowered.com/app/${item.appId}`, // ลิงก์เป็นลิงก์ของเกม
+            //               },
+            //             },
+            //           ],
+            //           justifyContent: "flex-start",
+            //           alignItems: "flex-start",
+            //         },
+            //       ],
+            //       flex: 0,
+            //       alignItems: "flex-start",
+            //       justifyContent: "center",
+            //     },
+            // },
             const flexContents = (appList === null || appList === void 0 ? void 0 : appList.map((item) => ({
                 type: "bubble",
                 size: "giga",
@@ -104,10 +156,7 @@ class LineService {
             const flexMessage = {
                 type: "flex",
                 altText: "รายการโปรดของคุณ",
-                contents: {
-                    type: "box",
-                    contents: flexContents,
-                },
+                contents: flexContents,
             };
             if (event.type === "message") {
                 const message = event.message;
