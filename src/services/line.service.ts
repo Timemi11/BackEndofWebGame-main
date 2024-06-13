@@ -78,6 +78,7 @@ export class LineService {
             });
           });
         } else if (message.text === "รายการโปรด") {
+          // flex message wishlist
           client.replyMessage({
             replyToken: event.replyToken,
             messages: [
@@ -111,12 +112,14 @@ export class LineService {
                           {
                             type: "text",
                             text: "game name",
+                            color: "#9290C3",
                             align: "start",
                             flex: 4,
                           },
                           {
                             type: "text",
                             text: "เลือกดู",
+                            color: "#9290C3",
                             align: "end",
                             action: {
                               type: "uri",
