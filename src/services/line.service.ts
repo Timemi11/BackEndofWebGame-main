@@ -314,7 +314,7 @@ export class LineService {
                       type: "button",
                       action: {
                         type: "uri",
-                        label: "ยืนยัน",
+                        label: "เข้า Steam!!",
                         uri: `${steamurl}${prod_id}`,
                       },
                       color: "#ffffff",
