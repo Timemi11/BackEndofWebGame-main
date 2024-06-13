@@ -1,6 +1,7 @@
 import * as line from "@line/bot-sdk";
 import dotenv from "dotenv";
 import UserMemberModel from "./../model/usermember";
+import { text } from "stream/consumers";
 
 dotenv.config();
 
@@ -17,61 +18,6 @@ export class LineService {
     const wishListText = appList?.map((item: any) => item.name).join(" ") || "";
 
     // const steamUrlGame = "https://store.steampowered.com/app/$appId";
-
-    const flexMessage: any = {
-      type: "flex",
-      altText: "รายการโปรดของคุณ",
-      contents: {
-        type: "bubble",
-        size: "giga",
-        body: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "text",
-              text: "รายการโปรด",
-              weight: "bold",
-              size: "xxl",
-            },
-            // Add more contents if needed within the body
-          ],
-        },
-        footer: {
-          type: "box",
-          layout: "vertical",
-          spacing: "sm",
-          contents: appList?.map((item: any) => ({
-            type: "box",
-            layout: "horizontal",
-            contents: [
-              {
-                type: "text",
-                text: item.name, // แสดงชื่อเกม
-                align: "start",
-                flex: 4,
-              },
-              {
-                type: "text",
-                text: "เลือกดู",
-                align: "end",
-                action: {
-                  type: "uri",
-                  label: "action",
-                  uri: `https://store.steampowered.com/app/${item.appId}`, // ลิงก์เป็นลิงก์ของเกม
-                },
-              },
-            ],
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-          })),
-          flex: 0,
-          alignItems: "flex-start",
-          justifyContent: "center",
-        },
-      },
-    };
-    
 
     if (event.type === "message") {
       const message = event.message;
@@ -134,7 +80,12 @@ export class LineService {
         } else if (message.text === "รายการโปรด") {
           client.replyMessage({
             replyToken: event.replyToken,
-            messages: flexMessage,
+            messages: [
+              {
+                type: "text",
+                text: "test text",
+              },
+            ],
           });
         } else {
           client.replyMessage({
