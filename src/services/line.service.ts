@@ -11,7 +11,7 @@ const client = new line.messagingApi.MessagingApiClient({
 export class LineService {
   static async sendWebhook(body: any,userId:string) {
     const event = body;
-    const app = await await UserMemberModel.findOne({ userId: userId });
+    const app =  await UserMemberModel.findOne({ userId: userId });
     const appList = app?.wishList;
 
     const wishListText = appList?.map((item: any) => item.name).join(" ") || "";

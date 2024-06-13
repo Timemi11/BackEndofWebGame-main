@@ -14,13 +14,14 @@ const line_service_1 = require("../services/line.service");
 class LineController {
     static sendWebhook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            var _a;
+            var _a, _b;
             const body = (_a = req.body.events[0]) !== null && _a !== void 0 ? _a : undefined;
+            const userId = (_b = body.source) === null || _b === void 0 ? void 0 : _b.userId;
             console.log(body);
             if (!body)
                 return res.sendStatus(200).end();
             try {
-                const result = yield line_service_1.LineService.sendWebhook(body);
+                const result = yield line_service_1.LineService.sendWebhook(body, userId);
                 res.status(200).send(result);
             }
             catch (error) {

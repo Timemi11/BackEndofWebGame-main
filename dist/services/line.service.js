@@ -38,14 +38,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LineService = void 0;
 const line = __importStar(require("@line/bot-sdk"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const usermember_1 = __importDefault(require("./../model/usermember"));
 dotenv_1.default.config();
 const client = new line.messagingApi.MessagingApiClient({
     channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
 });
 class LineService {
-    static sendWebhook(body) {
+    static sendWebhook(body, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const event = body;
+            const app = yield usermember_1.default.findOne({ userId: userId });
+            const appList = app === null || app === void 0 ? void 0 : app.wishList;
+            const wishListText = (appList === null || appList === void 0 ? void 0 : appList.map((item) => item.name).join(" ")) || "";
             if (event.type === "message") {
                 const message = event.message;
                 if (message.type === "text") {
@@ -106,6 +110,17 @@ class LineService {
                                     },
                                 ],
                             });
+                        });
+                    }
+                    else if (message.text === "รายการโปรด") {
+                        client.replyMessage({
+                            replyToken: event.replyToken,
+                            messages: [
+                                {
+                                    type: "text",
+                                    text: wishListText,
+                                },
+                            ],
                         });
                     }
                     else {
