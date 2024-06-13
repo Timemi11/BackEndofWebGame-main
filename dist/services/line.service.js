@@ -123,7 +123,6 @@ class LineService {
                                     altText: "flex",
                                     contents: {
                                         type: "bubble",
-                                        size: "giga",
                                         body: {
                                             type: "box",
                                             layout: "vertical",
