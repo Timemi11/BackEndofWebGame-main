@@ -157,6 +157,61 @@ export class LineService {
               },
             ],
           });
+        } else if (message.text === "เมนู"){
+          client.replyMessage({
+            replyToken: event.replyToken,
+            messages: [
+              {
+                type: "text",
+                text: "เมนูของเราสามารถกดที่ quickreply ได้เลย",
+                quickReply: {
+                  items: [
+                    {
+                      type: "action",
+                      action: {
+                        type: "message",
+                        label: "เข้าเว็บ",
+                        text: "เข้าเว็บ",
+                      },
+                    },
+                    {
+                      type: "action",
+                      action: {
+                        type: "message",
+                        label: "รายละเอียด",
+                        text: "รายละเอียด",
+                      },
+                    },
+                    {
+                      type: "action",
+                      action: {
+                        type: "message",
+                        label: "รายการโปรด",
+                        text: "รายการโปรด",
+                      },
+                    },
+                    {
+                      type: "action",
+                      action: {
+                        type: "message",
+                        label: "ข้อมูลของฉัน",
+                        text: "ข้อมูลของฉัน",
+                      },
+                    },
+                    {
+                      type: "action",
+                      action: {
+                        type: "message",
+                        label: "โปรโมชั่น",
+                        text: "โปรโมชั่น",
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          });
+
         } else {
           client.replyMessage({
             replyToken: event.replyToken,
