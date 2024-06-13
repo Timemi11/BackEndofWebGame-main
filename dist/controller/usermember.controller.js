@@ -41,6 +41,12 @@ class userMemberController {
             }
         });
     }
+    static findAppOnlyAppId(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let userMember = yield usermember_service_1.userMemberService.findAppOnlyAppId(req.params.id);
+            res.status(200).json(userMember);
+        });
+    }
     static findApp(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             let userMember = yield usermember_service_1.userMemberService.findApp(req.params.id);

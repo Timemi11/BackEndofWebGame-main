@@ -39,6 +39,16 @@ class userMemberService {
             return userMember === null || userMember === void 0 ? void 0 : userMember.wishList;
         });
     }
+    static findAppOnlyAppId(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userMember = yield usermember_1.default.findOne({ userId: id });
+            if (userMember) {
+                const appIds = userMember.wishList
+                    .map((item) => item.appId);
+                return appIds;
+            }
+        });
+    }
     static findAppId(id, appId) {
         return __awaiter(this, void 0, void 0, function* () {
             const userMember = yield usermember_1.default.findOne({ userId: id });
