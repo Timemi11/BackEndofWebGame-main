@@ -74,6 +74,7 @@ export class LineService {
       type: "flex" as const,
       altText: "รายการโปรดของคุณ",
       contents: {
+        type: "box",
         contents: flexContents,
       },
     };
