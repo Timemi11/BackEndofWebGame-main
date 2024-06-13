@@ -2,6 +2,7 @@ import * as line from "@line/bot-sdk";
 import dotenv from "dotenv";
 import UserMemberModel from "./../model/usermember";
 import { text } from "stream/consumers";
+import { FlexContainer } from "@line/bot-sdk/dist/messaging-api/model/flexContainer";
 
 dotenv.config();
 
@@ -18,6 +19,68 @@ export class LineService {
     const wishListText = appList?.map((item: any) => item.name).join(" ") || "";
 
     // const steamUrlGame = "https://store.steampowered.com/app/$appId";
+
+    function generateFlexContents(items: any) {
+      const contents: any = [];
+
+      items.forEach((item: any, index: any) => {
+        contents.push({
+          type: "box",
+          layout: "horizontal",
+          contents: [
+            {
+              type: "text",
+              text: item.name,
+              weight: "bold",
+              size: "lg",
+              flex: 1,
+            },
+            {
+              type: "text",
+              text: item.price,
+              size: "lg",
+              align: "end",
+              color: "#111111",
+            },
+          ],
+        });
+
+        // Add a separator after each item, except the last one
+        if (index < items.length - 1) {
+          contents.push({
+            type: "separator",
+            margin: "md",
+          });
+        }
+      });
+
+      return contents;
+    }
+
+    const flexContents = generateFlexContents(appList);
+
+    const flexTemplate = {
+      contents: {
+        type: "bubble",
+        header: {
+          type: "box",
+          layout: "vertical",
+          contents: [
+            {
+              type: "text",
+              text: "รายการโปรด", // Replace with your header text
+              size: "xl",
+              align: "center",
+            },
+          ],
+        },
+        body: {
+          type: "box",
+          layout: "vertical",
+          contents: flexContents,
+        },
+      },
+    };
 
     if (event.type === "message") {
       const message = event.message;
@@ -84,59 +147,66 @@ export class LineService {
             messages: [
               {
                 type: "flex",
-                altText: "flex",
-                contents: {
-                  type: "bubble",
-                  header: {
-                    type: "box",
-                    layout: "vertical",
-                    contents: [
-                      {
-                        type: "text",
-                        text: "รายการโปรด",
-                        size: "3xl",
-                        align: "center",
-                      },
-                    ],
-                  },
-                  body: {
-                    type: "box",
-                    layout: "vertical",
-                    contents: [
-                      {
-                        type: "text",
-                        text: "รายการ",
-                        weight: "bold",
-                        size: "xl",
-                      },
-                      // น่าจะวนลูปตั้งแต่ตรงนี้ ===============
-                      {
-                        type: "box",
-                        layout: "horizontal",
-                        contents: [
-                          {
-                            type: "text",
-                            flex: 2,
-                            text: "ยาวววววววววววววววววววววววววววววววว",
-                          },
-                          {
-                            type: "text",
-                            action: {
-                              type: "uri",
-                              uri: "http://linecorp.com/",
-                              label: "action",
-                            },
-                            text: "ลิ้งก์",
-                            align: "end",
-                          },
-                        ],
-                      },
-                      //=======================================
-                    ],
-                  },
-                },
+                altText: "This is a Flex Message",
+                contents: flexTemplate.contents as FlexContainer,
               },
             ],
+            // messages: [
+            //   {
+            //     type: "flex",
+            //     altText: "flex",
+            //     contents: {
+            //       type: "bubble",
+            //       header: {
+            //         type: "box",
+            //         layout: "vertical",
+            //         contents: [
+            //           {
+            //             type: "text",
+            //             text: "รายการโปรด",
+            //             size: "3xl",
+            //             align: "center",
+            //           },
+            //         ],
+            //       },
+            //       body: {
+            //         type: "box",
+            //         layout: "vertical",
+            //         contents: [
+            //           {
+            //             type: "text",
+            //             text: "รายการ",
+            //             weight: "bold",
+            //             size: "xl",
+            //           },
+            //           // น่าจะวนลูปตั้งแต่ตรงนี้ ===============
+            //           {
+            //             type: "box",
+            //             layout: "horizontal",
+            //             contents: [
+            //               {
+            //                 type: "text",
+            //                 flex: 2,
+            //                 text: "ยาวววววววววววววววววววววววววววววววว",
+            //               },
+            //               {
+            //                 type: "text",
+            //                 action: {
+            //                   type: "uri",
+            //                   uri: "http://linecorp.com/",
+            //                   label: "action",
+            //                 },
+            //                 text: "ลิ้งก์",
+            //                 align: "end",
+            //               },
+            //             ],
+            //           },
+            //           //=======================================
+            //         ],
+            //       },
+            //     },
+            //   },
+            // ],
           });
         } else {
           client.replyMessage({

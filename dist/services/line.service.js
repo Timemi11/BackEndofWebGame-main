@@ -51,6 +51,62 @@ class LineService {
             const appList = app === null || app === void 0 ? void 0 : app.wishList;
             const wishListText = (appList === null || appList === void 0 ? void 0 : appList.map((item) => item.name).join(" ")) || "";
             // const steamUrlGame = "https://store.steampowered.com/app/$appId";
+            function generateFlexContents(items) {
+                const contents = [];
+                items.forEach((item, index) => {
+                    contents.push({
+                        type: "box",
+                        layout: "horizontal",
+                        contents: [
+                            {
+                                type: "text",
+                                text: item.name,
+                                weight: "bold",
+                                size: "lg",
+                                flex: 1,
+                            },
+                            {
+                                type: "text",
+                                text: item.price,
+                                size: "lg",
+                                align: "end",
+                                color: "#111111",
+                            },
+                        ],
+                    });
+                    // Add a separator after each item, except the last one
+                    if (index < items.length - 1) {
+                        contents.push({
+                            type: "separator",
+                            margin: "md",
+                        });
+                    }
+                });
+                return contents;
+            }
+            const flexContents = generateFlexContents(appList);
+            const flexTemplate = {
+                contents: {
+                    type: "bubble",
+                    header: {
+                        type: "box",
+                        layout: "vertical",
+                        contents: [
+                            {
+                                type: "text",
+                                text: "รายการโปรด", // Replace with your header text
+                                size: "xl",
+                                align: "center",
+                            },
+                        ],
+                    },
+                    body: {
+                        type: "box",
+                        layout: "vertical",
+                        contents: flexContents,
+                    },
+                },
+            };
             if (event.type === "message") {
                 const message = event.message;
                 if (message.type === "text") {
@@ -120,59 +176,66 @@ class LineService {
                             messages: [
                                 {
                                     type: "flex",
-                                    altText: "flex",
-                                    contents: {
-                                        type: "bubble",
-                                        header: {
-                                            type: "box",
-                                            layout: "vertical",
-                                            contents: [
-                                                {
-                                                    type: "text",
-                                                    text: "รายการโปรด",
-                                                    size: "3xl",
-                                                    align: "center",
-                                                },
-                                            ],
-                                        },
-                                        body: {
-                                            type: "box",
-                                            layout: "vertical",
-                                            contents: [
-                                                {
-                                                    type: "text",
-                                                    text: "รายการ",
-                                                    weight: "bold",
-                                                    size: "xl",
-                                                },
-                                                // น่าจะวนลูปตั้งแต่ตรงนี้ ===============
-                                                {
-                                                    type: "box",
-                                                    layout: "horizontal",
-                                                    contents: [
-                                                        {
-                                                            type: "text",
-                                                            flex: 2,
-                                                            text: "ยาวววววววววววววววววววววววววววววววว",
-                                                        },
-                                                        {
-                                                            type: "text",
-                                                            action: {
-                                                                type: "uri",
-                                                                uri: "http://linecorp.com/",
-                                                                label: "action",
-                                                            },
-                                                            text: "ลิ้งก์",
-                                                            align: "end",
-                                                        },
-                                                    ],
-                                                },
-                                                //=======================================
-                                            ],
-                                        },
-                                    },
+                                    altText: "This is a Flex Message",
+                                    contents: flexTemplate.contents,
                                 },
                             ],
+                            // messages: [
+                            //   {
+                            //     type: "flex",
+                            //     altText: "flex",
+                            //     contents: {
+                            //       type: "bubble",
+                            //       header: {
+                            //         type: "box",
+                            //         layout: "vertical",
+                            //         contents: [
+                            //           {
+                            //             type: "text",
+                            //             text: "รายการโปรด",
+                            //             size: "3xl",
+                            //             align: "center",
+                            //           },
+                            //         ],
+                            //       },
+                            //       body: {
+                            //         type: "box",
+                            //         layout: "vertical",
+                            //         contents: [
+                            //           {
+                            //             type: "text",
+                            //             text: "รายการ",
+                            //             weight: "bold",
+                            //             size: "xl",
+                            //           },
+                            //           // น่าจะวนลูปตั้งแต่ตรงนี้ ===============
+                            //           {
+                            //             type: "box",
+                            //             layout: "horizontal",
+                            //             contents: [
+                            //               {
+                            //                 type: "text",
+                            //                 flex: 2,
+                            //                 text: "ยาวววววววววววววววววววววววววววววววว",
+                            //               },
+                            //               {
+                            //                 type: "text",
+                            //                 action: {
+                            //                   type: "uri",
+                            //                   uri: "http://linecorp.com/",
+                            //                   label: "action",
+                            //                 },
+                            //                 text: "ลิ้งก์",
+                            //                 align: "end",
+                            //               },
+                            //             ],
+                            //           },
+                            //           //=======================================
+                            //         ],
+                            //       },
+                            //     },
+                            //   },
+                            // ],
                         });
                     }
                     else {
