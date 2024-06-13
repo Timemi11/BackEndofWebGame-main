@@ -137,6 +137,14 @@ class LineService {
                                                 type: "action",
                                                 action: {
                                                     type: "message",
+                                                    label: "รายการโปรด",
+                                                    text: "รายการโปรด",
+                                                },
+                                            },
+                                            {
+                                                type: "action",
+                                                action: {
+                                                    type: "message",
                                                     label: "รายละเอียด",
                                                     text: "รายละเอียด",
                                                 },
