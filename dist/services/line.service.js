@@ -105,7 +105,6 @@ class LineService {
                 type: "flex",
                 altText: "รายการโปรดของคุณ",
                 contents: {
-                    type: "bubble",
                     contents: flexContents,
                 },
             };
