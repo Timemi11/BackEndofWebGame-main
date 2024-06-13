@@ -33,10 +33,11 @@ export class LineService {
               text: item.name,
               weight: "bold",
               size: "md",
-              flex: 2,
+              flex: 4,
             },
             {
               type: "text",
+              color: "#3ABEF9",
               action: {
                 type: "uri",
                 uri: `https://store.steampowered.com/app/${item.appId}`,
