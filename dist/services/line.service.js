@@ -98,7 +98,7 @@ class LineService {
                         contents: [
                             {
                                 type: "text",
-                                text: "♥️♥️♥️ รายการโปรด ♥️♥️♥️", // Replace with your header text
+                                text: "♥️ รายการโปรด ♥️", // Replace with your header text
                                 size: "xl",
                                 align: "center",
                             },
