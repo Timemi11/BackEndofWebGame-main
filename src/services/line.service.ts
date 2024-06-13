@@ -115,8 +115,8 @@ export class LineService {
                         contents: [
                           {
                             type: "text",
-                            text: "ชื่อเกม",
-                            flex: 8,
+                            flex: 2,
+                            text: "ยาวววววววววววววววววววววววววววววววว",
                           },
                           {
                             type: "text",
@@ -125,7 +125,8 @@ export class LineService {
                               uri: "http://linecorp.com/",
                               label: "action",
                             },
-                            text: "link",
+                            text: "ลิ้งก์",
+                            align: "end",
                           },
                         ],
                       },
