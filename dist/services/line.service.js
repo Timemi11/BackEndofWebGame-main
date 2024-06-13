@@ -51,6 +51,7 @@ class LineService {
             const appList = app === null || app === void 0 ? void 0 : app.wishList;
             const wishListText = (appList === null || appList === void 0 ? void 0 : appList.map((item) => item.name).join(" ")) || "";
             // const steamUrlGame = "https://store.steampowered.com/app/$appId";
+            // ============== FLEX LOOP BOX ===============
             function generateFlexContents(items) {
                 const contents = [];
                 items.forEach((item, index) => {
@@ -111,6 +112,7 @@ class LineService {
                     },
                 },
             };
+            // ============ FLEX LOOP BOX END ================
             if (event.type === "message") {
                 const message = event.message;
                 if (message.type === "text") {
@@ -199,8 +201,8 @@ class LineService {
                                                 type: "action",
                                                 action: {
                                                     type: "message",
-                                                    label: "รายการโปรด",
-                                                    text: "รายการโปรด",
+                                                    label: "เข้าเว็บ",
+                                                    text: "เข้าเว็บ",
                                                 },
                                             },
                                             {
@@ -215,16 +217,16 @@ class LineService {
                                                 type: "action",
                                                 action: {
                                                     type: "message",
-                                                    label: "ข้อมูลของฉัน",
-                                                    text: "ข้อมูลของฉัน",
+                                                    label: "รายการโปรด",
+                                                    text: "รายการโปรด",
                                                 },
                                             },
                                             {
                                                 type: "action",
                                                 action: {
                                                     type: "message",
-                                                    label: "สินค้า",
-                                                    text: "สินค้า",
+                                                    label: "ข้อมูลของฉัน",
+                                                    text: "ข้อมูลของฉัน",
                                                 },
                                             },
                                             {

@@ -1,7 +1,6 @@
 import * as line from "@line/bot-sdk";
 import dotenv from "dotenv";
 import UserMemberModel from "./../model/usermember";
-import { text } from "stream/consumers";
 import { FlexContainer } from "@line/bot-sdk/dist/messaging-api/model/flexContainer";
 
 dotenv.config();
@@ -20,6 +19,7 @@ export class LineService {
 
     // const steamUrlGame = "https://store.steampowered.com/app/$appId";
 
+    // ============== FLEX LOOP BOX ===============
     function generateFlexContents(items: any) {
       const contents: any = [];
 
@@ -60,7 +60,6 @@ export class LineService {
 
       return contents;
     }
-
     const flexContents = generateFlexContents(appList);
 
     const flexTemplate = {
@@ -85,6 +84,8 @@ export class LineService {
         },
       },
     };
+
+    // ============ FLEX LOOP BOX END ================
 
     if (event.type === "message") {
       const message = event.message;
@@ -169,8 +170,8 @@ export class LineService {
                       type: "action",
                       action: {
                         type: "message",
-                        label: "รายการโปรด",
-                        text: "รายการโปรด",
+                        label: "เข้าเว็บ",
+                        text: "เข้าเว็บ",
                       },
                     },
                     {
@@ -185,16 +186,16 @@ export class LineService {
                       type: "action",
                       action: {
                         type: "message",
-                        label: "ข้อมูลของฉัน",
-                        text: "ข้อมูลของฉัน",
+                        label: "รายการโปรด",
+                        text: "รายการโปรด",
                       },
                     },
                     {
                       type: "action",
                       action: {
                         type: "message",
-                        label: "สินค้า",
-                        text: "สินค้า",
+                        label: "ข้อมูลของฉัน",
+                        text: "ข้อมูลของฉัน",
                       },
                     },
                     {
