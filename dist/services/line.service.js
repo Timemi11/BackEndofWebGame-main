@@ -62,9 +62,9 @@ class LineService {
                             type: "text",
                             text: "รายการโปรด",
                             weight: "bold",
-                            size: "xxl"
-                        }
-                    ]
+                            size: "xxl",
+                        },
+                    ],
                 },
                 footer: {
                     type: "box",
@@ -79,7 +79,7 @@ class LineService {
                                     type: "text",
                                     text: item.name, // แสดงชื่อเกม
                                     align: "start",
-                                    flex: 4
+                                    flex: 4,
                                 },
                                 {
                                     type: "text",
@@ -88,18 +88,18 @@ class LineService {
                                     action: {
                                         type: "uri",
                                         label: "action",
-                                        uri: "https://store.steampowered.com/app/" // ลิงก์เป็นลิงก์ของเกม
-                                    }
-                                }
+                                        uri: `https://store.steampowered.com/app/${item.appId}`, // ลิงก์เป็นลิงก์ของเกม
+                                    },
+                                },
                             ],
                             justifyContent: "flex-start",
-                            alignItems: "flex-start"
-                        }
+                            alignItems: "flex-start",
+                        },
                     ],
                     flex: 0,
                     alignItems: "flex-start",
-                    justifyContent: "center"
-                }
+                    justifyContent: "center",
+                },
             }))) || [];
             const flexMessage = {
                 type: "flex",
@@ -107,7 +107,7 @@ class LineService {
                 contents: {
                     type: "carousel",
                     contents: flexContents,
-                }
+                },
             };
             if (event.type === "message") {
                 const message = event.message;
