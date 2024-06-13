@@ -116,6 +116,7 @@ export class LineService {
                           {
                             type: "text",
                             text: "ชื่อเกม",
+                            flex: 8,
                           },
                           {
                             type: "text",
