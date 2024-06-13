@@ -36,6 +36,11 @@ export class userMemberController {
     }
   }
 
+  static async findAppOnlyAppId(req: Request, res: Response, next: NextFunction){
+    let userMember:any = await userMemberService.findAppOnlyAppId(req.params.id)
+    res.status(200).json(userMember);
+  }
+
   static async findApp(req: Request, res: Response, next: NextFunction) {
     let userMember = await userMemberService.findApp(req.params.id);
     res.status(200).json(userMember);
