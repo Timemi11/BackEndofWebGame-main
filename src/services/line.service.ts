@@ -82,8 +82,58 @@ export class LineService {
             replyToken: event.replyToken,
             messages: [
               {
-                type: "text",
-                text: "test text",
+                type: "flex",
+                altText: "flex",
+                contents: {
+                  type: "bubble",
+                  size: "giga",
+                  body: {
+                    type: "box",
+                    layout: "vertical",
+                    contents: [
+                      {
+                        type: "text",
+                        text: "รายการโปรด",
+                        weight: "bold",
+                        size: "xxl",
+                      },
+                    ],
+                  },
+                  footer: {
+                    type: "box",
+                    layout: "vertical",
+                    spacing: "sm",
+                    contents: [
+                      {
+                        type: "box",
+                        layout: "horizontal",
+                        contents: [
+                          {
+                            type: "text",
+                            text: "game name",
+                            align: "start",
+                            flex: 4,
+                          },
+                          {
+                            type: "text",
+                            text: "เลือกดู",
+                            align: "end",
+                            action: {
+                              type: "uri",
+                              label: "action",
+                              uri: "http://linecorp.com/",
+                            },
+                          },
+                        ],
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                      },
+                    ],
+                    flex: 0,
+                    alignItems: "flex-start",
+                    justifyContent: "center",
+                  },
+                },
               },
             ],
           });
