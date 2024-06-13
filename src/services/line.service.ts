@@ -143,6 +143,9 @@ export class LineService {
     } else if (prod_beforeprice === prod_price) {
       prod_beforeprice = "-";
       prod_price = "ราคา " + (prod_price / 100).toFixed(0) + " บาท";
+    } else if (prod_beforeprice === "notGet") {
+      prod_beforeprice = "-";
+      prod_price = "ราคา " + (prod_price / 100).toFixed(0) + " บาท";
     } else {
       prod_price = "ลดเหลือ " + (prod_price / 100).toFixed(0) + " บาท";
       prod_beforeprice = "จาก " + (prod_beforeprice / 100).toFixed(0) + " บาท";
