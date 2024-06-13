@@ -37,7 +37,7 @@ export class LineService {
             },
             {
               type: "text",
-              text: item.price,
+              text: `https://store.steampowered.com/app/${item.appId}`,
               size: "lg",
               align: "end",
               color: "#111111",
