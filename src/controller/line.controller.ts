@@ -4,10 +4,11 @@ import { LineService } from "../services/line.service";
 export class LineController {
   static async sendWebhook(req: Request, res: Response) {
     const body = req.body.events[0] ?? undefined;
+    const userId = body.source?.userId;
     console.log(body);
     if (!body) return res.sendStatus(200).end();
     try {
-      const result = await LineService.sendWebhook(body);
+      const result = await LineService.sendWebhook(body,userId);
        res.status(200).send(result);
     } catch (error) {
       console.error("Error in sendWebhook:", error);
