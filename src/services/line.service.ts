@@ -72,7 +72,7 @@ export class LineService {
           contents: [
             {
               type: "text",
-              text: "รายการโปรด", // Replace with your header text
+              text: "♥️♥️♥️ รายการโปรด ♥️♥️♥️", // Replace with your header text
               size: "xl",
               align: "center",
             },
@@ -155,62 +155,6 @@ export class LineService {
                 contents: flexTemplate.contents as FlexContainer,
               },
             ],
-            // messages: [
-            //   {
-            //     type: "flex",
-            //     altText: "flex",
-            //     contents: {
-            //       type: "bubble",
-            //       header: {
-            //         type: "box",
-            //         layout: "vertical",
-            //         contents: [
-            //           {
-            //             type: "text",
-            //             text: "รายการโปรด",
-            //             size: "3xl",
-            //             align: "center",
-            //           },
-            //         ],
-            //       },
-            //       body: {
-            //         type: "box",
-            //         layout: "vertical",
-            //         contents: [
-            //           {
-            //             type: "text",
-            //             text: "รายการ",
-            //             weight: "bold",
-            //             size: "xl",
-            //           },
-            //           // น่าจะวนลูปตั้งแต่ตรงนี้ ===============
-            //           {
-            //             type: "box",
-            //             layout: "horizontal",
-            //             contents: [
-            //               {
-            //                 type: "text",
-            //                 flex: 2,
-            //                 text: "ยาวววววววววววววววววววววววววววววววว",
-            //               },
-            //               {
-            //                 type: "text",
-            //                 action: {
-            //                   type: "uri",
-            //                   uri: "http://linecorp.com/",
-            //                   label: "action",
-            //                 },
-            //                 text: "ลิ้งก์",
-            //                 align: "end",
-            //               },
-            //             ],
-            //           },
-            //           //=======================================
-            //         ],
-            //       },
-            //     },
-            //   },
-            // ],
           });
         } else {
           client.replyMessage({
