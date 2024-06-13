@@ -62,15 +62,18 @@ class LineService {
                                 type: "text",
                                 text: item.name,
                                 weight: "bold",
-                                size: "lg",
-                                flex: 1,
+                                size: "md",
+                                flex: 2,
                             },
                             {
                                 type: "text",
-                                text: `https://store.steampowered.com/app/${item.appId}`,
-                                size: "lg",
+                                action: {
+                                    type: "uri",
+                                    uri: `https://store.steampowered.com/app/${item.appId}`,
+                                    label: "action",
+                                },
+                                text: "Link",
                                 align: "end",
-                                color: "#111111",
                             },
                         ],
                     });
