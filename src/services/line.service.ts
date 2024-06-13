@@ -87,53 +87,48 @@ export class LineService {
                 altText: "flex",
                 contents: {
                   type: "bubble",
-                  body: {
+                  header: {
                     type: "box",
                     layout: "vertical",
                     contents: [
                       {
                         type: "text",
                         text: "รายการโปรด",
-                        weight: "bold",
-                        size: "xxl",
+                        size: "3xl",
+                        align: "center",
                       },
                     ],
                   },
-                  footer: {
+                  body: {
                     type: "box",
                     layout: "vertical",
-                    spacing: "sm",
                     contents: [
+                      {
+                        type: "text",
+                        text: "รายการ",
+                        weight: "bold",
+                        size: "xl",
+                      },
                       {
                         type: "box",
                         layout: "horizontal",
                         contents: [
                           {
                             type: "text",
-                            text: "game name",
-                            color: "#9290C3",
-                            align: "start",
-                            flex: 4,
+                            text: "ชื่อเกม",
                           },
                           {
                             type: "text",
-                            text: "เลือกดู",
-                            color: "#9290C3",
-                            align: "end",
                             action: {
                               type: "uri",
-                              label: "action",
                               uri: "http://linecorp.com/",
+                              label: "action",
                             },
+                            text: "link",
                           },
                         ],
-                        justifyContent: "flex-start",
-                        alignItems: "flex-start",
                       },
                     ],
-                    flex: 0,
-                    alignItems: "flex-start",
-                    justifyContent: "center",
                   },
                 },
               },
