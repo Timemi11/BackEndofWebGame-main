@@ -145,6 +145,7 @@ class LineService {
                                                     weight: "bold",
                                                     size: "xl",
                                                 },
+                                                // น่าจะวนลูปตั้งแต่ตรงนี้ ===============
                                                 {
                                                     type: "box",
                                                     layout: "horizontal",
@@ -166,6 +167,7 @@ class LineService {
                                                         },
                                                     ],
                                                 },
+                                                //=======================================
                                             ],
                                         },
                                     },
