@@ -9,12 +9,14 @@ const client = new line.messagingApi.MessagingApiClient({
 });
 
 export class LineService {
-  static async sendWebhook(body: any,userId:string) {
+  static async sendWebhook(body: any, userId: string) {
     const event = body;
-    const app =  await UserMemberModel.findOne({ userId: userId });
+    const app = await UserMemberModel.findOne({ userId: userId });
     const appList = app?.wishList;
 
     const wishListText = appList?.map((item: any) => item.name).join(" ") || "";
+
+    // const steamUrlGame = "https://store.steampowered.com/app/$appId";
 
     if (event.type === "message") {
       const message = event.message;
@@ -74,7 +76,7 @@ export class LineService {
               ],
             });
           });
-        } else if (message.text === "รายการโปรด"){
+        } else if (message.text === "รายการโปรด") {
           client.replyMessage({
             replyToken: event.replyToken,
             messages: [
@@ -84,7 +86,6 @@ export class LineService {
               },
             ],
           });
-
         } else {
           client.replyMessage({
             replyToken: event.replyToken,

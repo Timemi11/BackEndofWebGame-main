@@ -50,6 +50,7 @@ class LineService {
             const app = yield usermember_1.default.findOne({ userId: userId });
             const appList = app === null || app === void 0 ? void 0 : app.wishList;
             const wishListText = (appList === null || appList === void 0 ? void 0 : appList.map((item) => item.name).join(" ")) || "";
+            // const steamUrlGame = "https://store.steampowered.com/app/$appId";
             if (event.type === "message") {
                 const message = event.message;
                 if (message.type === "text") {
