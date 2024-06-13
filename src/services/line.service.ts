@@ -1,5 +1,6 @@
 import * as line from "@line/bot-sdk";
 import dotenv from "dotenv";
+import UserMemberModel from "./../model/usermember";
 
 dotenv.config();
 
@@ -8,8 +9,12 @@ const client = new line.messagingApi.MessagingApiClient({
 });
 
 export class LineService {
-  static async sendWebhook(body: any) {
+  static async sendWebhook(body: any,userId:string) {
     const event = body;
+    const app = await await UserMemberModel.findOne({ userId: userId });
+    const appList = app?.wishList;
+
+    const wishListText = appList?.map((item: any) => item.name).join(" ") || "";
 
     if (event.type === "message") {
       const message = event.message;
@@ -69,6 +74,17 @@ export class LineService {
               ],
             });
           });
+        } else if (message.text === "รายการโปรด"){
+          client.replyMessage({
+            replyToken: event.replyToken,
+            messages: [
+              {
+                type: "text",
+                text: wishListText,
+              },
+            ],
+          });
+
         } else {
           client.replyMessage({
             replyToken: event.replyToken,
