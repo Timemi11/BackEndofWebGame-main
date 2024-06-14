@@ -22,11 +22,11 @@ class LineController {
                 return res.sendStatus(200).end();
             try {
                 const result = yield line_service_1.LineService.sendWebhook(body, userId);
-                res.sendStatus(200).end();
+                return res.sendStatus(200).end();
             }
             catch (error) {
                 console.error("Error in sendWebhook:", error);
-                res.status(500).send("Error in Webhook");
+                return res.status(500).send("Error in Webhook");
             }
         });
     }
