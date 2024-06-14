@@ -49,7 +49,7 @@ class LineService {
             const event = body;
             const app = yield usermember_1.default.findOne({ userId: userId });
             const appList = app === null || app === void 0 ? void 0 : app.wishList;
-            const wishListText = (appList === null || appList === void 0 ? void 0 : appList.map((item) => item.name).join(" ")) || "";
+            // const wishListText = appList?.map((item: any) => item.name).join(" ") || "";
             // const steamUrlGame = "https://store.steampowered.com/app/$appId";
             // ============== FLEX LOOP BOX ===============
             function generateFlexContents(items) {
@@ -62,6 +62,7 @@ class LineService {
                             {
                                 type: "text",
                                 text: item.name,
+                                wrap: true,
                                 weight: "bold",
                                 size: "md",
                                 flex: 4,

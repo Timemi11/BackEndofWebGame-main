@@ -15,7 +15,7 @@ export class LineService {
     const app = await UserMemberModel.findOne({ userId: userId });
     const appList = app?.wishList;
 
-    const wishListText = appList?.map((item: any) => item.name).join(" ") || "";
+    // const wishListText = appList?.map((item: any) => item.name).join(" ") || "";
 
     // const steamUrlGame = "https://store.steampowered.com/app/$appId";
 
@@ -31,6 +31,7 @@ export class LineService {
             {
               type: "text",
               text: item.name,
+              wrap: true,
               weight: "bold",
               size: "md",
               flex: 4,
