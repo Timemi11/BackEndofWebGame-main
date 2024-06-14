@@ -16,10 +16,10 @@ class LineController {
         return __awaiter(this, void 0, void 0, function* () {
             var _a, _b;
             const body = (_a = req.body.events[0]) !== null && _a !== void 0 ? _a : undefined;
-            const userId = (_b = body.source) === null || _b === void 0 ? void 0 : _b.userId;
             console.log(body);
             if (!body)
                 return res.sendStatus(200).end();
+            const userId = (_b = body.source) === null || _b === void 0 ? void 0 : _b.userId; //เช็คนี้ทีหลัง ส่ง body หรือ object ของ webhook มา
             try {
                 const result = yield line_service_1.LineService.sendWebhook(body, userId);
                 return res.sendStatus(200).end();

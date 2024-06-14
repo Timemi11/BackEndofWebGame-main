@@ -269,6 +269,7 @@ export class LineService {
         }
       }
     }
+    
   }
 
   static async sendMessageToLine(userId: string, body: any) {
