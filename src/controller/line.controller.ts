@@ -8,11 +8,11 @@ export class LineController {
     console.log(body);
     if (!body) return res.sendStatus(200).end();
     try {
-      const result = await LineService.sendWebhook(body,userId);
-       res.status(200).send(result);
+      const result = await LineService.sendWebhook(body, userId);
+      res.sendStatus(200).end();
     } catch (error) {
       console.error("Error in sendWebhook:", error);
-       res.status(500).send("Error in Webhook");
+      res.status(500).send("Error in Webhook");
     }
   }
 
@@ -23,12 +23,10 @@ export class LineController {
     console.log(body);
     try {
       const result = await LineService.sendMessageToLine(userId, body);
-       res
-        .status(200)
-        .json({ message: "Message sent successfully", result });
+      res.status(200).json({ message: "Message sent successfully", result });
     } catch (error) {
       console.error("Error in sendMessageToLine:", error);
-       res.status(500).json({ error: "Failed to send message" });
+      res.status(500).json({ error: "Failed to send message" });
     }
   }
 }

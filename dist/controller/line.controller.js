@@ -22,7 +22,7 @@ class LineController {
                 return res.sendStatus(200).end();
             try {
                 const result = yield line_service_1.LineService.sendWebhook(body, userId);
-                res.status(200).send(result);
+                res.sendStatus(200).end();
             }
             catch (error) {
                 console.error("Error in sendWebhook:", error);
@@ -38,9 +38,7 @@ class LineController {
             console.log(body);
             try {
                 const result = yield line_service_1.LineService.sendMessageToLine(userId, body);
-                res
-                    .status(200)
-                    .json({ message: "Message sent successfully", result });
+                res.status(200).json({ message: "Message sent successfully", result });
             }
             catch (error) {
                 console.error("Error in sendMessageToLine:", error);
