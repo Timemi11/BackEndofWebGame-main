@@ -6,7 +6,7 @@ export class LineController {
     const body = req.body.events[0] ?? undefined;
     console.log(body);
     if (!body) return res.sendStatus(200).end();
-    const userId = body.source?.userId; //เช็คนี้ทีหลัง ส่ง body หรือ object ของ webhook มา
+    const userId = body.source?.userId; //เช็คนี้ หลัง webhook ส่ง body หรือ object  มา
     try {
       const result = await LineService.sendWebhook(body, userId);
       return res.sendStatus(200).end();
