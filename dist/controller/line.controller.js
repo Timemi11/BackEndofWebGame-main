@@ -31,7 +31,6 @@ class LineController {
             }
         });
     }
-    // test pull
     static sendMessageToLine(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = req.params.userId;
