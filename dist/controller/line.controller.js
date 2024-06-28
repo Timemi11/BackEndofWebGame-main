@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LineController = void 0;
 const line_service_1 = require("../services/line.service");
+const line_middleware_1 = require("../middleware/line.middleware");
 class LineController {
     static sendWebhook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -19,7 +20,7 @@ class LineController {
             console.log(body);
             if (!body)
                 return res.sendStatus(200).end();
-            const userId = (_b = body.source) === null || _b === void 0 ? void 0 : _b.userId; //เช็คนี้ทีหลัง ส่ง body หรือ object ของ webhook มา
+            const userId = (_b = body.source) === null || _b === void 0 ? void 0 : _b.userId; //เช็คนี้ หลัง webhook ส่ง body หรือ object  มา
             try {
                 const result = yield line_service_1.LineService.sendWebhook(body, userId);
                 return res.sendStatus(200).end();
@@ -30,6 +31,7 @@ class LineController {
             }
         });
     }
+    // test pull
     static sendMessageToLine(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = req.params.userId;
@@ -38,6 +40,18 @@ class LineController {
             console.log(body);
             try {
                 const result = yield line_service_1.LineService.sendMessageToLine(userId, body);
+                res.status(200).json({ message: "Message sent successfully", result });
+            }
+            catch (error) {
+                console.error("Error in sendMessageToLine:", error);
+                res.status(500).json({ error: "Failed to send message" });
+            }
+        });
+    }
+    static getProfile(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield line_middleware_1.lineMiddleware;
                 res.status(200).json({ message: "Message sent successfully", result });
             }
             catch (error) {

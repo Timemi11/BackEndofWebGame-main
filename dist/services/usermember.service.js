@@ -43,8 +43,7 @@ class userMemberService {
         return __awaiter(this, void 0, void 0, function* () {
             const userMember = yield usermember_1.default.findOne({ userId: id });
             if (userMember) {
-                const appIds = userMember.wishList
-                    .map((item) => item.appId);
+                const appIds = userMember.wishList.map((item) => item.appId);
                 return appIds;
             }
         });
@@ -87,3 +86,4 @@ class userMemberService {
     }
 }
 exports.userMemberService = userMemberService;
+//Test Pull

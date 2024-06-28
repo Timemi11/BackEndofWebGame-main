@@ -23,13 +23,11 @@ export class userMemberService {
 
   static async findAppOnlyAppId(id: string) {
     const userMember = await UserMemberModel.findOne({ userId: id });
-    if(userMember){
-      const appIds = userMember.wishList
-      .map((item: any) => item.appId);
-      return appIds
+    if (userMember) {
+      const appIds = userMember.wishList.map((item: any) => item.appId);
+      return appIds;
     }
   }
-
 
   static async findAppId(id: string, appId: string) {
     const userMember = await UserMemberModel.findOne({ userId: id });

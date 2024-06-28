@@ -2,6 +2,7 @@ import * as line from "@line/bot-sdk";
 import dotenv from "dotenv";
 import UserMemberModel from "./../model/usermember";
 import { FlexContainer } from "@line/bot-sdk/dist/messaging-api/model/flexContainer";
+import { checkIsFree } from "../util/checkIsFree";
 
 dotenv.config();
 
@@ -269,7 +270,6 @@ export class LineService {
         }
       }
     }
-    
   }
 
   static async sendMessageToLine(userId: string, body: any) {
@@ -284,122 +284,106 @@ export class LineService {
       steamurl,
     } = body;
 
-    if (
-      prod_price === 0 ||
-      prod_price === null ||
-      prod_beforeprice === 0 ||
-      prod_beforeprice === null
-    ) {
-      prod_beforeprice = " ";
-      prod_price = "ฟรี";
-    } else if (prod_beforeprice === prod_price) {
-      prod_beforeprice = " ";
-      prod_price = "ราคา " + (prod_price / 100).toFixed(0) + " บาท";
-    } else if (prod_beforeprice === "notGet") {
-      prod_beforeprice = " ";
-      prod_price = "ราคา " + (prod_price / 100).toFixed(0) + " บาท";
-    } else {
-      prod_price = "ลดเหลือ " + (prod_price / 100).toFixed(0) + " บาท";
-      prod_beforeprice = "จาก " + (prod_beforeprice / 100).toFixed(0) + " บาท";
-    }
+    checkIsFree(prod_price, prod_beforeprice);
 
+    const flexContents: FlexContainer = {
+      type: "bubble",
+      hero: {
+        type: "image",
+        url: prod_img,
+        size: "full",
+        aspectRatio: "20:13",
+        aspectMode: "cover",
+        action: {
+          type: "uri",
+          uri: url,
+        },
+      },
+
+      footer: {
+        type: "box",
+        layout: "horizontal",
+        contents: [
+          {
+            type: "box",
+            layout: "vertical",
+            contents: [
+              {
+                type: "box",
+                layout: "vertical",
+                contents: [
+                  {
+                    type: "text",
+                    text: "ราคา",
+                    size: "md",
+                    color: "#000000",
+                    weight: "bold",
+                  },
+                ],
+              },
+              {
+                type: "box",
+                layout: "vertical",
+                contents: [
+                  {
+                    type: "box",
+                    layout: "vertical",
+                    contents: [
+                      {
+                        type: "text",
+                        text: prod_beforeprice,
+                        style: "italic",
+                        size: "sm",
+                        decoration: "line-through",
+                        align: "center",
+                        color: "#B31312",
+                      },
+                    ],
+                  },
+                  {
+                    type: "text",
+                    text: prod_price,
+                    color: "#22c55e",
+                    size: "md",
+                    style: "normal",
+                    weight: "bold",
+                    align: "center",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "box",
+            layout: "vertical",
+            contents: [
+              {
+                type: "button",
+                action: {
+                  type: "uri",
+                  label: "เข้า Steam!!",
+                  uri: `${steamurl}${prod_id}`,
+                },
+                color: "#ffffff",
+              },
+            ],
+            backgroundColor: "#6842FF",
+            justifyContent: "center",
+            alignItems: "center",
+            cornerRadius: "xxl",
+            borderColor: "#000000",
+            borderWidth: "none",
+          },
+        ],
+      },
+    }
     client.pushMessage({
       to: userId,
       messages: [
         {
           type: "flex",
           altText: "รหัสสินค้า " + prod_id,
-          contents: {
-            type: "bubble",
-            hero: {
-              type: "image",
-              url: prod_img,
-              size: "full",
-              aspectRatio: "20:13",
-              aspectMode: "cover",
-              action: {
-                type: "uri",
-                uri: url,
-              },
-            },
-
-            footer: {
-              type: "box",
-              layout: "horizontal",
-              contents: [
-                {
-                  type: "box",
-                  layout: "vertical",
-                  contents: [
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: "ราคา",
-                          size: "md",
-                          color: "#000000",
-                          weight: "bold",
-                        },
-                      ],
-                    },
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "box",
-                          layout: "vertical",
-                          contents: [
-                            {
-                              type: "text",
-                              text: prod_beforeprice,
-                              style: "italic",
-                              size: "sm",
-                              decoration: "line-through",
-                              align: "center",
-                              color: "#B31312",
-                            },
-                          ],
-                        },
-                        {
-                          type: "text",
-                          text: prod_price,
-                          color: "#22c55e",
-                          size: "md",
-                          style: "normal",
-                          weight: "bold",
-                          align: "center",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  type: "box",
-                  layout: "vertical",
-                  contents: [
-                    {
-                      type: "button",
-                      action: {
-                        type: "uri",
-                        label: "เข้า Steam!!",
-                        uri: `${steamurl}${prod_id}`,
-                      },
-                      color: "#ffffff",
-                    },
-                  ],
-                  backgroundColor: "#6842FF",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  cornerRadius: "xxl",
-                  borderColor: "#000000",
-                  borderWidth: "none",
-                },
-              ],
-            },
-          },
+          contents: flexContents
         },
         {
           type: "text",
@@ -408,4 +392,18 @@ export class LineService {
       ],
     });
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

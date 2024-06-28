@@ -18,6 +18,9 @@ export class SurveyService {
   }
   static async updateSurveyById(id: string, newsurvey: any) {
     const survey = await SurveyModel.findByIdAndUpdate(id, newsurvey);
+
+
+
     return survey;
   }
   static async deleteSurvey(id: string, newsurvey: any) {

@@ -1,6 +1,6 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import { userMemberController } from "../controller/usermember.controller";
-import UserMemberModel from "./../model/usermember";
+
 const route = Router();
 
 route.get("/usermember", userMemberController.getUserMember); //ดู User ทั้งหมด
