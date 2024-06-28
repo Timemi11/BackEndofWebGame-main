@@ -38,11 +38,11 @@ class LineController {
             console.log(body);
             try {
                 const result = yield new line_service_1.LineService().sendMessageToLine(userId, body);
-                res.status(200).json({ message: "Message sent successfully", result });
+                return res.status(200).json({ message: "Message sent successfully", result });
             }
             catch (error) {
                 console.error("Error in sendMessageToLine:", error);
-                res.status(500).json({ error: "Failed to send message" });
+                return res.status(500).json({ error: "Failed to send message" });
             }
         });
     }
@@ -51,11 +51,11 @@ class LineController {
             const userId = req.body.userId;
             try {
                 const result = yield new line_service_1.LineService().getProfileByUserId(userId);
-                res.status(200).json(result);
+                return res.status(200).json(result);
             }
             catch (error) {
                 console.error("Error in getProfile:", error);
-                res.status(500).json({ error: "Failed to get profile" });
+                return res.status(500).json({ error: "Failed to get profile" });
             }
         });
     }

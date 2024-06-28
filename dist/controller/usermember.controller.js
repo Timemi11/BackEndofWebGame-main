@@ -30,37 +30,37 @@ class userMemberController {
             try {
                 let userMember = yield usermember_service_1.userMemberService.findUserMemberByUserId(req.params.id);
                 if (userMember) {
-                    res.status(200).json(userMember);
+                    return res.status(200).json(userMember);
                 }
                 else {
-                    res.status(404).json({ message: "User not found" });
+                    return res.status(404).json({ message: "User not found" });
                 }
             }
             catch (error) {
-                res.status(500).json({ message: "Internal server error" });
+                return res.status(500).json({ message: "Internal server error" });
             }
         });
     }
     static findAppOnlyAppId(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             let userMember = yield usermember_service_1.userMemberService.findAppOnlyAppId(req.params.id);
-            res.status(200).json(userMember);
+            return res.status(200).json(userMember);
         });
     }
     static findApp(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             let userMember = yield usermember_service_1.userMemberService.findApp(req.params.id);
-            res.status(200).json(userMember);
+            return res.status(200).json(userMember);
         });
     }
     static findAppId(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             let userMember = yield usermember_service_1.userMemberService.findAppId(req.params.id, req.params.appid);
             if (userMember === null || userMember === void 0 ? void 0 : userMember.length) {
-                res.status(200).json(userMember);
+                return res.status(200).json(userMember);
             }
             else {
-                res.status(404).json({ message: "Appid not found" });
+                return res.status(404).json({ message: "Appid not found" });
             }
         });
     }
@@ -89,7 +89,7 @@ class userMemberController {
                 return res.status(200).json(updateResult);
             }
             catch (error) {
-                res
+                return res
                     .status(500)
                     .json({ message: "Internal server error", error: error.message });
             }
@@ -97,4 +97,3 @@ class userMemberController {
     }
 }
 exports.userMemberController = userMemberController;
-// dfdfdgfg

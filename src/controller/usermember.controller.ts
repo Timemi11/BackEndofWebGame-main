@@ -27,23 +27,23 @@ export class userMemberController {
         req.params.id
       );
       if (userMember) {
-        res.status(200).json(userMember);
+        return res.status(200).json(userMember);
       } else {
-        res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: "User not found" });
       }
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ message: "Internal server error" });
     }
   }
 
-  static async findAppOnlyAppId(req: Request, res: Response, next: NextFunction){
-    let userMember:any = await userMemberService.findAppOnlyAppId(req.params.id)
-    res.status(200).json(userMember);
+  static async findAppOnlyAppId(req: Request, res: Response, next: NextFunction) {
+    let userMember: any = await userMemberService.findAppOnlyAppId(req.params.id)
+    return res.status(200).json(userMember);
   }
 
   static async findApp(req: Request, res: Response, next: NextFunction) {
     let userMember = await userMemberService.findApp(req.params.id);
-    res.status(200).json(userMember);
+    return res.status(200).json(userMember);
   }
 
   static async findAppId(req: Request, res: Response, next: NextFunction) {
@@ -52,9 +52,9 @@ export class userMemberController {
       req.params.appid
     );
     if (userMember?.length) {
-      res.status(200).json(userMember);
+      return res.status(200).json(userMember);
     } else {
-      res.status(404).json({ message: "Appid not found" });
+      return res.status(404).json({ message: "Appid not found" });
     }
   }
 
@@ -92,11 +92,9 @@ export class userMemberController {
       );
       return res.status(200).json(updateResult);
     } catch (error: any) {
-      res
+      return res
         .status(500)
         .json({ message: "Internal server error", error: error.message });
     }
   }
 }
-
-// dfdfdgfg
