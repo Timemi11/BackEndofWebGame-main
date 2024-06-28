@@ -307,7 +307,9 @@ class LineService {
     static sendMessageToLine(userId, body) {
         return __awaiter(this, void 0, void 0, function* () {
             let { prod_id, prod_img, prod_name, prod_desc, prod_beforeprice, prod_price, url, steamurl, } = body;
-            (0, checkIsFree_1.checkIsFree)(prod_price, prod_beforeprice);
+            const newprice = (0, checkIsFree_1.checkIsFree)(prod_price, prod_beforeprice);
+            prod_price = newprice.prod_price;
+            prod_beforeprice = newprice.prod_beforeprice;
             console.log(prod_price + " " + prod_beforeprice);
             const flexContents = {
                 type: "bubble",

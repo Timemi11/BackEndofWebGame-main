@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LineController = void 0;
 const line_service_1 = require("../services/line.service");
-const line_middleware_1 = require("../middleware/line.middleware");
 class LineController {
     static sendWebhook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -39,18 +38,6 @@ class LineController {
             console.log(body);
             try {
                 const result = yield line_service_1.LineService.sendMessageToLine(userId, body);
-                res.status(200).json({ message: "Message sent successfully", result });
-            }
-            catch (error) {
-                console.error("Error in sendMessageToLine:", error);
-                res.status(500).json({ error: "Failed to send message" });
-            }
-        });
-    }
-    static getProfile(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield line_middleware_1.lineMiddleware;
                 res.status(200).json({ message: "Message sent successfully", result });
             }
             catch (error) {

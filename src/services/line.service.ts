@@ -284,8 +284,9 @@ export class LineService {
       steamurl,
     } = body;
 
-    checkIsFree(prod_price, prod_beforeprice);
-
+    const newprice = checkIsFree(prod_price, prod_beforeprice);
+    prod_price = newprice.prod_price
+    prod_beforeprice = newprice.prod_beforeprice
     console.log(prod_price + " " + prod_beforeprice)
 
 

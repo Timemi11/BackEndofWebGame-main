@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { LineService } from "../services/line.service";
-import { lineMiddleware } from "../middleware/line.middleware";
+
 
 export class LineController {
   static async sendWebhook(req: Request, res: Response) {
@@ -23,16 +23,6 @@ export class LineController {
     console.log(body);
     try {
       const result = await LineService.sendMessageToLine(userId, body);
-      res.status(200).json({ message: "Message sent successfully", result });
-    } catch (error) {
-      console.error("Error in sendMessageToLine:", error);
-      res.status(500).json({ error: "Failed to send message" });
-    }
-  }
-
-  static async getProfile(req: Request, res: Response) {
-    try {
-      const result = await lineMiddleware;
       res.status(200).json({ message: "Message sent successfully", result });
     } catch (error) {
       console.error("Error in sendMessageToLine:", error);
