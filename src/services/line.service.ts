@@ -286,6 +286,9 @@ export class LineService {
 
     checkIsFree(prod_price, prod_beforeprice);
 
+    console.log(prod_price + " " + prod_beforeprice)
+
+
     const flexContents: FlexContainer = {
       type: "bubble",
       hero: {
