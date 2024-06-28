@@ -14,7 +14,6 @@ const usermember_service_1 = require("../services/usermember.service");
 class userMemberController {
     static getUserMember(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            //let product = await ProductService.getProduct()
             let userMember = yield usermember_service_1.userMemberService.getUserMember();
             return res.status(200).json(userMember);
         });

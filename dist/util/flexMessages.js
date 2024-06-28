@@ -1,7 +1,16 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loopBoxMessage = void 0;
-const loopBoxMessage = (appList) => {
+exports.flexMessage = exports.loopBoxMessage = void 0;
+const loopBoxMessage = (appList) => __awaiter(void 0, void 0, void 0, function* () {
     const flexContents = generateFlexContents(appList);
     const flexTemplate = {
         contents: {
@@ -26,7 +35,7 @@ const loopBoxMessage = (appList) => {
         },
     };
     return flexTemplate;
-};
+});
 exports.loopBoxMessage = loopBoxMessage;
 const generateFlexContents = (items) => {
     const contents = [];
@@ -66,3 +75,109 @@ const generateFlexContents = (items) => {
     });
     return contents;
 };
+const flexMessage = (prod_id, prod_img, prod_name, prod_beforeprice, prod_price, url, steamurl) => __awaiter(void 0, void 0, void 0, function* () {
+    const flexContents = {
+        type: "bubble",
+        hero: {
+            type: "image",
+            url: prod_img,
+            size: "full",
+            aspectRatio: "20:13",
+            aspectMode: "cover",
+            action: {
+                type: "uri",
+                uri: url,
+            },
+        },
+        body: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+                {
+                    type: "text",
+                    text: prod_name,
+                    weight: "bold",
+                    size: "xxl",
+                },
+            ],
+        },
+        footer: {
+            type: "box",
+            layout: "horizontal",
+            contents: [
+                {
+                    type: "box",
+                    layout: "vertical",
+                    contents: [
+                        {
+                            type: "box",
+                            layout: "vertical",
+                            contents: [
+                                {
+                                    type: "text",
+                                    text: "ราคา",
+                                    size: "md",
+                                    color: "#000000",
+                                    weight: "bold",
+                                },
+                            ],
+                        },
+                        {
+                            type: "box",
+                            layout: "vertical",
+                            contents: [
+                                {
+                                    type: "box",
+                                    layout: "vertical",
+                                    contents: [
+                                        {
+                                            type: "text",
+                                            text: prod_beforeprice,
+                                            style: "italic",
+                                            size: "sm",
+                                            decoration: "line-through",
+                                            align: "center",
+                                            color: "#B31312",
+                                        },
+                                    ],
+                                },
+                                {
+                                    type: "text",
+                                    text: prod_price,
+                                    color: "#22c55e",
+                                    size: "md",
+                                    style: "normal",
+                                    weight: "bold",
+                                    align: "center",
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    type: "box",
+                    layout: "vertical",
+                    contents: [
+                        {
+                            type: "button",
+                            action: {
+                                type: "uri",
+                                label: "เข้า Steam!!",
+                                uri: `${steamurl}${prod_id}`,
+                            },
+                            color: "#ffffff",
+                        },
+                    ],
+                    backgroundColor: "#6842FF",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cornerRadius: "xxl",
+                    borderColor: "#000000",
+                    borderWidth: "none",
+                },
+            ],
+        },
+    };
+    return flexContents;
+});
+exports.flexMessage = flexMessage;

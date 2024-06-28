@@ -4,7 +4,7 @@ import UserMemberModel from "./../model/usermember";
 import { FlexContainer } from "@line/bot-sdk/dist/messaging-api/model/flexContainer";
 import { checkIsFree } from "../util/checkIsFree";
 import { MessagingApiClient } from "@line/bot-sdk/dist/messaging-api/api/messagingApiClient";
-import { loopBoxMessage } from "../util/flexMessages";
+import { flexMessage, loopBoxMessage } from "../util/flexMessages";
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ export class LineService {
     const app = await UserMemberModel.findOne({ userId: userId });
     const appList = app?.wishList;
     // FLEX LOOP BOX 
-    const flexTemplate = loopBoxMessage(appList)
+    const flexTemplate = await loopBoxMessage(appList)
     if (event.type === "message") {
       const message = event.message;
 
@@ -211,110 +211,25 @@ export class LineService {
       prod_id,
       prod_img,
       prod_name,
-      prod_desc,
       prod_beforeprice,
       prod_price,
       url,
-      steamurl,
+      steamurl
     } = body;
 
     const newprice = checkIsFree(prod_price, prod_beforeprice);
     prod_price = newprice.prod_price
     prod_beforeprice = newprice.prod_beforeprice
-    console.log(prod_price + " " + prod_beforeprice)
 
+    const flexContents = await flexMessage(
+      prod_id,
+      prod_img,
+      prod_name,
+      prod_beforeprice,
+      prod_price,
+      url,
+      steamurl)
 
-    const flexContents: FlexContainer = {
-      type: "bubble",
-      hero: {
-        type: "image",
-        url: prod_img,
-        size: "full",
-        aspectRatio: "20:13",
-        aspectMode: "cover",
-        action: {
-          type: "uri",
-          uri: url,
-        },
-      },
-
-      footer: {
-        type: "box",
-        layout: "horizontal",
-        contents: [
-          {
-            type: "box",
-            layout: "vertical",
-            contents: [
-              {
-                type: "box",
-                layout: "vertical",
-                contents: [
-                  {
-                    type: "text",
-                    text: "ราคา",
-                    size: "md",
-                    color: "#000000",
-                    weight: "bold",
-                  },
-                ],
-              },
-              {
-                type: "box",
-                layout: "vertical",
-                contents: [
-                  {
-                    type: "box",
-                    layout: "vertical",
-                    contents: [
-                      {
-                        type: "text",
-                        text: prod_beforeprice,
-                        style: "italic",
-                        size: "sm",
-                        decoration: "line-through",
-                        align: "center",
-                        color: "#B31312",
-                      },
-                    ],
-                  },
-                  {
-                    type: "text",
-                    text: prod_price,
-                    color: "#22c55e",
-                    size: "md",
-                    style: "normal",
-                    weight: "bold",
-                    align: "center",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            type: "box",
-            layout: "vertical",
-            contents: [
-              {
-                type: "button",
-                action: {
-                  type: "uri",
-                  label: "เข้า Steam!!",
-                  uri: `${steamurl}${prod_id}`,
-                },
-                color: "#ffffff",
-              },
-            ],
-            backgroundColor: "#6842FF",
-            justifyContent: "center",
-            alignItems: "center",
-            cornerRadius: "xxl",
-            borderColor: "#000000",
-            borderWidth: "none",
-          },
-        ],
-      },
-    }
     this.client.pushMessage({
       to: userId,
       messages: [

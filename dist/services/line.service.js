@@ -54,7 +54,7 @@ class LineService {
             const app = yield usermember_1.default.findOne({ userId: userId });
             const appList = app === null || app === void 0 ? void 0 : app.wishList;
             // FLEX LOOP BOX 
-            const flexTemplate = (0, flexMessages_1.loopBoxMessage)(appList);
+            const flexTemplate = yield (0, flexMessages_1.loopBoxMessage)(appList);
             if (event.type === "message") {
                 const message = event.message;
                 if (message.type === "text") {
@@ -246,101 +246,11 @@ class LineService {
     }
     sendMessageToLine(userId, body) {
         return __awaiter(this, void 0, void 0, function* () {
-            let { prod_id, prod_img, prod_name, prod_desc, prod_beforeprice, prod_price, url, steamurl, } = body;
+            let { prod_id, prod_img, prod_name, prod_beforeprice, prod_price, url, steamurl } = body;
             const newprice = (0, checkIsFree_1.checkIsFree)(prod_price, prod_beforeprice);
             prod_price = newprice.prod_price;
             prod_beforeprice = newprice.prod_beforeprice;
-            console.log(prod_price + " " + prod_beforeprice);
-            const flexContents = {
-                type: "bubble",
-                hero: {
-                    type: "image",
-                    url: prod_img,
-                    size: "full",
-                    aspectRatio: "20:13",
-                    aspectMode: "cover",
-                    action: {
-                        type: "uri",
-                        uri: url,
-                    },
-                },
-                footer: {
-                    type: "box",
-                    layout: "horizontal",
-                    contents: [
-                        {
-                            type: "box",
-                            layout: "vertical",
-                            contents: [
-                                {
-                                    type: "box",
-                                    layout: "vertical",
-                                    contents: [
-                                        {
-                                            type: "text",
-                                            text: "ราคา",
-                                            size: "md",
-                                            color: "#000000",
-                                            weight: "bold",
-                                        },
-                                    ],
-                                },
-                                {
-                                    type: "box",
-                                    layout: "vertical",
-                                    contents: [
-                                        {
-                                            type: "box",
-                                            layout: "vertical",
-                                            contents: [
-                                                {
-                                                    type: "text",
-                                                    text: prod_beforeprice,
-                                                    style: "italic",
-                                                    size: "sm",
-                                                    decoration: "line-through",
-                                                    align: "center",
-                                                    color: "#B31312",
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            type: "text",
-                                            text: prod_price,
-                                            color: "#22c55e",
-                                            size: "md",
-                                            style: "normal",
-                                            weight: "bold",
-                                            align: "center",
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        {
-                            type: "box",
-                            layout: "vertical",
-                            contents: [
-                                {
-                                    type: "button",
-                                    action: {
-                                        type: "uri",
-                                        label: "เข้า Steam!!",
-                                        uri: `${steamurl}${prod_id}`,
-                                    },
-                                    color: "#ffffff",
-                                },
-                            ],
-                            backgroundColor: "#6842FF",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            cornerRadius: "xxl",
-                            borderColor: "#000000",
-                            borderWidth: "none",
-                        },
-                    ],
-                },
-            };
+            const flexContents = yield (0, flexMessages_1.flexMessage)(prod_id, prod_img, prod_name, prod_beforeprice, prod_price, url, steamurl);
             this.client.pushMessage({
                 to: userId,
                 messages: [
