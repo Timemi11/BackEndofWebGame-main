@@ -13,12 +13,19 @@ exports.lineMiddleware = void 0;
 const line_1 = require("../util/line");
 const lineMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const authentication = req.headers["authorization"];
+    console.log("authentication");
+    console.log(authentication);
     if (!authentication) {
-        return res.status(401).json({ message: "Unauthorized" });
+        console.log("!authentication");
+        console.log(authentication);
+        return res.status(401).json({ message: authentication });
     }
     const [type, token] = authentication.split(" ");
     if (type !== "Bearer" || !token) {
-        return res.status(401).json({ message: "Unauthorized" });
+        console.log("!Bearer");
+        console.log(type);
+        console.log(token);
+        return res.status(401).json({ message: authentication });
     }
     try {
         yield (0, line_1.verifyToken)(token);

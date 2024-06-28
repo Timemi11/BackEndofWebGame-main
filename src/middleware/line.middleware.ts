@@ -10,7 +10,7 @@ export const lineMiddleware = async (req: Request, res: Response, next: NextFunc
     if (!authentication) {
         console.log("!authentication")
         console.log(authentication)
-        return res.status(401).json({ message: "Unauthorized" })
+        return res.status(401).json({ message: authentication })
     }
     const [type, token] = authentication.split(" ")
 
@@ -18,7 +18,7 @@ export const lineMiddleware = async (req: Request, res: Response, next: NextFunc
         console.log("!Bearer")
         console.log(type)
         console.log(token)
-        return res.status(401).json({ message: "Unauthorized" })
+        return res.status(401).json({ message: authentication })
     }
 
     try {
