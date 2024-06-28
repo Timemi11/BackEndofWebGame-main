@@ -3,98 +3,32 @@ import dotenv from "dotenv";
 import UserMemberModel from "./../model/usermember";
 import { FlexContainer } from "@line/bot-sdk/dist/messaging-api/model/flexContainer";
 import { checkIsFree } from "../util/checkIsFree";
+import { MessagingApiClient } from "@line/bot-sdk/dist/messaging-api/api/messagingApiClient";
+import { loopBoxMessage } from "../util/flexMessages";
 
 dotenv.config();
 
-const client = new line.messagingApi.MessagingApiClient({
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
-});
-
 export class LineService {
-  static async sendWebhook(body: any, userId: string) {
+  private client: MessagingApiClient
+
+  constructor() {
+    this.client = new line.messagingApi.MessagingApiClient({
+      channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
+    });
+  }
+
+  async sendWebhook(body: any, userId: string) {
     const event = body;
     const app = await UserMemberModel.findOne({ userId: userId });
     const appList = app?.wishList;
-
-    // const wishListText = appList?.map((item: any) => item.name).join(" ") || "";
-
-    // const steamUrlGame = "https://store.steampowered.com/app/$appId";
-
-    // ============== FLEX LOOP BOX ===============
-    function generateFlexContents(items: any) {
-      const contents: any = [];
-
-      items.forEach((item: any, index: any) => {
-        contents.push({
-          type: "box",
-          layout: "horizontal",
-          contents: [
-            {
-              type: "text",
-              text: item.name,
-              wrap: true,
-              weight: "bold",
-              size: "md",
-              flex: 4,
-            },
-            {
-              type: "text",
-              color: "#3ABEF9",
-              action: {
-                type: "uri",
-                uri: `https://store.steampowered.com/app/${item.appId}`,
-                label: "action",
-              },
-              text: "Link",
-              align: "end",
-            },
-          ],
-        });
-
-        // Add a separator after each item, except the last one
-        if (index < items.length - 1) {
-          contents.push({
-            type: "separator",
-            margin: "md",
-          });
-        }
-      });
-
-      return contents;
-    }
-    const flexContents = generateFlexContents(appList);
-
-    const flexTemplate = {
-      contents: {
-        type: "bubble",
-        header: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "text",
-              text: "♥️ รายการโปรด ♥️", // Replace with your header text
-              size: "xl",
-              align: "center",
-            },
-          ],
-        },
-        body: {
-          type: "box",
-          layout: "vertical",
-          contents: flexContents,
-        },
-      },
-    };
-
-    // ============ FLEX LOOP BOX END ================
-
+    // FLEX LOOP BOX 
+    const flexTemplate = loopBoxMessage(appList)
     if (event.type === "message") {
       const message = event.message;
 
       if (message.type === "text") {
         if (message.text === "รายละเอียด") {
-          client.replyMessage({
+          this.client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -104,7 +38,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "เข้าเว็บ") {
-          client.replyMessage({
+          this.client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -114,7 +48,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "โปรโมชั่น") {
-          client.replyMessage({
+          this.client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -124,8 +58,8 @@ export class LineService {
             ],
           });
         } else if (message.text === "ข้อมูลของฉัน") {
-          client.getProfile(event.source.userId).then((proflie) => {
-            client.replyMessage({
+          this.client.getProfile(event.source.userId).then((proflie) => {
+            this.client.replyMessage({
               replyToken: event.replyToken,
               messages: [
                 {
@@ -136,8 +70,8 @@ export class LineService {
             });
           });
         } else if (message.text === "รอดำเนินการ...") {
-          client.getProfile(event.source.userId).then((proflie) => {
-            client.replyMessage({
+          this.client.getProfile(event.source.userId).then((proflie) => {
+            this.client.replyMessage({
               replyToken: event.replyToken,
               messages: [
                 {
@@ -149,7 +83,7 @@ export class LineService {
           });
         } else if (message.text === "รายการโปรด") {
           // flex message wishlist
-          client.replyMessage({
+          this.client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -160,7 +94,7 @@ export class LineService {
             ],
           });
         } else if (message.text === "เมนู") {
-          client.replyMessage({
+          this.client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -214,7 +148,7 @@ export class LineService {
             ],
           });
         } else {
-          client.replyMessage({
+          this.client.replyMessage({
             replyToken: event.replyToken,
             messages: [
               {
@@ -272,7 +206,7 @@ export class LineService {
     }
   }
 
-  static async sendMessageToLine(userId: string, body: any) {
+  async sendMessageToLine(userId: string, body: any) {
     let {
       prod_id,
       prod_img,
@@ -381,7 +315,7 @@ export class LineService {
         ],
       },
     }
-    client.pushMessage({
+    this.client.pushMessage({
       to: userId,
       messages: [
         {
@@ -398,7 +332,10 @@ export class LineService {
   }
 
 
-
+  async getProfileByUserId(userId: string) {
+    const user = await this.client.getProfile(userId);
+    return user
+  }
 
 
 

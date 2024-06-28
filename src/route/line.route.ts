@@ -6,6 +6,6 @@ const route = Router();
 
 route.post("/webhook", LineController.sendWebhook);
 route.post("/sent-gameproduct/:userId", LineController.sendMessageToLine);
-route.get("/get-profile", lineMiddleware);
+route.get("/get-profile", lineMiddleware, LineController.getProfile);
 
 export default route;

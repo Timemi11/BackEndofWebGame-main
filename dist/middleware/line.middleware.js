@@ -23,7 +23,7 @@ const lineMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     try {
         yield (0, line_1.verifyToken)(token);
         const userProfile = yield (0, line_1.getUserProfile)(token);
-        return res.status(200).json(userProfile);
+        req.body.userId = userProfile.userId;
         next();
     }
     catch (error) {

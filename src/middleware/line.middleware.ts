@@ -14,7 +14,7 @@ export const lineMiddleware = async (req: Request, res: Response, next: NextFunc
     try {
         await verifyToken(token)
         const userProfile = await getUserProfile(token)
-        return res.status(200).json(userProfile)
+        req.body.userId = userProfile.userId
         next()
     }
     catch (error: any) {

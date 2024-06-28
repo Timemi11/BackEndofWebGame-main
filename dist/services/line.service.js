@@ -40,86 +40,26 @@ const line = __importStar(require("@line/bot-sdk"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const usermember_1 = __importDefault(require("./../model/usermember"));
 const checkIsFree_1 = require("../util/checkIsFree");
+const flexMessages_1 = require("../util/flexMessages");
 dotenv_1.default.config();
-const client = new line.messagingApi.MessagingApiClient({
-    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
-});
 class LineService {
-    static sendWebhook(body, userId) {
+    constructor() {
+        this.client = new line.messagingApi.MessagingApiClient({
+            channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
+        });
+    }
+    sendWebhook(body, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const event = body;
             const app = yield usermember_1.default.findOne({ userId: userId });
             const appList = app === null || app === void 0 ? void 0 : app.wishList;
-            // const wishListText = appList?.map((item: any) => item.name).join(" ") || "";
-            // const steamUrlGame = "https://store.steampowered.com/app/$appId";
-            // ============== FLEX LOOP BOX ===============
-            function generateFlexContents(items) {
-                const contents = [];
-                items.forEach((item, index) => {
-                    contents.push({
-                        type: "box",
-                        layout: "horizontal",
-                        contents: [
-                            {
-                                type: "text",
-                                text: item.name,
-                                wrap: true,
-                                weight: "bold",
-                                size: "md",
-                                flex: 4,
-                            },
-                            {
-                                type: "text",
-                                color: "#3ABEF9",
-                                action: {
-                                    type: "uri",
-                                    uri: `https://store.steampowered.com/app/${item.appId}`,
-                                    label: "action",
-                                },
-                                text: "Link",
-                                align: "end",
-                            },
-                        ],
-                    });
-                    // Add a separator after each item, except the last one
-                    if (index < items.length - 1) {
-                        contents.push({
-                            type: "separator",
-                            margin: "md",
-                        });
-                    }
-                });
-                return contents;
-            }
-            const flexContents = generateFlexContents(appList);
-            const flexTemplate = {
-                contents: {
-                    type: "bubble",
-                    header: {
-                        type: "box",
-                        layout: "vertical",
-                        contents: [
-                            {
-                                type: "text",
-                                text: "♥️ รายการโปรด ♥️", // Replace with your header text
-                                size: "xl",
-                                align: "center",
-                            },
-                        ],
-                    },
-                    body: {
-                        type: "box",
-                        layout: "vertical",
-                        contents: flexContents,
-                    },
-                },
-            };
-            // ============ FLEX LOOP BOX END ================
+            // FLEX LOOP BOX 
+            const flexTemplate = (0, flexMessages_1.loopBoxMessage)(appList);
             if (event.type === "message") {
                 const message = event.message;
                 if (message.type === "text") {
                     if (message.text === "รายละเอียด") {
-                        client.replyMessage({
+                        this.client.replyMessage({
                             replyToken: event.replyToken,
                             messages: [
                                 {
@@ -130,7 +70,7 @@ class LineService {
                         });
                     }
                     else if (message.text === "เข้าเว็บ") {
-                        client.replyMessage({
+                        this.client.replyMessage({
                             replyToken: event.replyToken,
                             messages: [
                                 {
@@ -141,7 +81,7 @@ class LineService {
                         });
                     }
                     else if (message.text === "โปรโมชั่น") {
-                        client.replyMessage({
+                        this.client.replyMessage({
                             replyToken: event.replyToken,
                             messages: [
                                 {
@@ -152,8 +92,8 @@ class LineService {
                         });
                     }
                     else if (message.text === "ข้อมูลของฉัน") {
-                        client.getProfile(event.source.userId).then((proflie) => {
-                            client.replyMessage({
+                        this.client.getProfile(event.source.userId).then((proflie) => {
+                            this.client.replyMessage({
                                 replyToken: event.replyToken,
                                 messages: [
                                     {
@@ -165,8 +105,8 @@ class LineService {
                         });
                     }
                     else if (message.text === "รอดำเนินการ...") {
-                        client.getProfile(event.source.userId).then((proflie) => {
-                            client.replyMessage({
+                        this.client.getProfile(event.source.userId).then((proflie) => {
+                            this.client.replyMessage({
                                 replyToken: event.replyToken,
                                 messages: [
                                     {
@@ -179,7 +119,7 @@ class LineService {
                     }
                     else if (message.text === "รายการโปรด") {
                         // flex message wishlist
-                        client.replyMessage({
+                        this.client.replyMessage({
                             replyToken: event.replyToken,
                             messages: [
                                 {
@@ -191,7 +131,7 @@ class LineService {
                         });
                     }
                     else if (message.text === "เมนู") {
-                        client.replyMessage({
+                        this.client.replyMessage({
                             replyToken: event.replyToken,
                             messages: [
                                 {
@@ -246,7 +186,7 @@ class LineService {
                         });
                     }
                     else {
-                        client.replyMessage({
+                        this.client.replyMessage({
                             replyToken: event.replyToken,
                             messages: [
                                 {
@@ -304,7 +244,7 @@ class LineService {
             }
         });
     }
-    static sendMessageToLine(userId, body) {
+    sendMessageToLine(userId, body) {
         return __awaiter(this, void 0, void 0, function* () {
             let { prod_id, prod_img, prod_name, prod_desc, prod_beforeprice, prod_price, url, steamurl, } = body;
             const newprice = (0, checkIsFree_1.checkIsFree)(prod_price, prod_beforeprice);
@@ -401,7 +341,7 @@ class LineService {
                     ],
                 },
             };
-            client.pushMessage({
+            this.client.pushMessage({
                 to: userId,
                 messages: [
                     {
@@ -415,6 +355,12 @@ class LineService {
                     },
                 ],
             });
+        });
+    }
+    getProfileByUserId(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.client.getProfile(userId);
+            return user;
         });
     }
 }
