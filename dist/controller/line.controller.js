@@ -16,7 +16,6 @@ class LineController {
         return __awaiter(this, void 0, void 0, function* () {
             var _a, _b;
             const body = (_a = req.body.events[0]) !== null && _a !== void 0 ? _a : undefined;
-            console.log(body);
             if (!body)
                 return res.sendStatus(200).end();
             const userId = (_b = body.source) === null || _b === void 0 ? void 0 : _b.userId; //เช็คนี้ หลัง webhook ส่ง body หรือ object  มา
@@ -33,9 +32,7 @@ class LineController {
     static sendMessageToLine(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = req.params.userId;
-            console.log(userId);
             const body = req.body;
-            console.log(body);
             try {
                 const result = yield new line_service_1.LineService().sendMessageToLine(userId, body);
                 return res.status(200).json({ message: "Message sent successfully", result });

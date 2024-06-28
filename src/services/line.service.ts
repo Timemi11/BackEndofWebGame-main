@@ -21,8 +21,10 @@ export class LineService {
     const event = body;
     const app = await UserMemberModel.findOne({ userId: userId });
     const appList = app?.wishList;
+
     // FLEX LOOP BOX 
     const flexTemplate = await loopBoxMessage(appList)
+    
     if (event.type === "message") {
       const message = event.message;
 

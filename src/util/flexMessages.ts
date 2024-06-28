@@ -100,6 +100,7 @@ export const flexMessage = async (
                 {
                     type: "text",
                     text: prod_name,
+                    wrap: true,
                     weight: "bold",
                     size: "xxl",
                 },

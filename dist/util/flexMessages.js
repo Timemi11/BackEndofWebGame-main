@@ -96,6 +96,7 @@ const flexMessage = (prod_id, prod_img, prod_name, prod_beforeprice, prod_price,
                 {
                     type: "text",
                     text: prod_name,
+                    wrap: true,
                     weight: "bold",
                     size: "xxl",
                 },
