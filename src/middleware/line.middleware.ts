@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import { getUserProfile, verifyToken } from "../util/line"
 
 export const lineMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-    const authentication = req.headers.authorization
+    const authentication = req.headers["authorization"]
     if (!authentication) {
         return res.status(401).json({ message: "Unauthorized" })
     }
