@@ -16,7 +16,6 @@ export class LineController {
       return res.status(500).send("Error in Webhook");
     }
   }
-  // test pull
   static async sendMessageToLine(req: Request, res: Response) {
     const userId = req.params.userId;
     console.log(userId);
