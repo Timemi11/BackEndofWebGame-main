@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.lineMiddleware = void 0;
 const line_1 = require("../util/line");
 const lineMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const authentication = req.headers.authorization;
+    const authentication = req.headers["authorization"];
     if (!authentication) {
         return res.status(401).json({ message: "Unauthorized" });
     }
