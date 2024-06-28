@@ -12,25 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.lineMiddleware = void 0;
 const line_1 = require("../util/line");
 const lineMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const authentication = req.headers["authorization"];
-    console.log("authentication");
-    console.log(authentication);
+    const authentication = req.headers.authorization;
     if (!authentication) {
-        console.log("!authentication");
-        console.log(authentication);
-        return res.status(401).json({ message: authentication });
+        return res.status(401).json({ message: "No Authorization header" });
     }
     const [type, token] = authentication.split(" ");
     if (type !== "Bearer" || !token) {
-        console.log("!Bearer");
-        console.log(type);
-        console.log(token);
-        return res.status(401).json({ message: authentication });
+        return res.status(401).json({ message: "Invalid Authorization header" });
     }
     try {
         yield (0, line_1.verifyToken)(token);
         const userProfile = yield (0, line_1.getUserProfile)(token);
-        return userProfile;
+        return res.status(200).json(userProfile);
+        next();
     }
     catch (error) {
         console.log(error);

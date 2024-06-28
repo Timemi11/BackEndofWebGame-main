@@ -2,29 +2,20 @@ import { Request, Response, NextFunction } from "express"
 import { getUserProfile, verifyToken } from "../util/line"
 
 export const lineMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-    const authentication = req.headers["authorization"]
-    console.log("authentication")
-    console.log(authentication)
-
-
+    const authentication = req.headers.authorization
     if (!authentication) {
-        console.log("!authentication")
-        console.log(authentication)
-        return res.status(401).json({ message: authentication })
+        return res.status(401).json({ message: "No Authorization header" })
     }
     const [type, token] = authentication.split(" ")
 
     if (type !== "Bearer" || !token) {
-        console.log("!Bearer")
-        console.log(type)
-        console.log(token)
-        return res.status(401).json({ message: authentication })
+        return res.status(401).json({ message: "Invalid Authorization header" })
     }
-
     try {
         await verifyToken(token)
         const userProfile = await getUserProfile(token)
-        return userProfile
+        return res.status(200).json(userProfile)
+        next()
     }
     catch (error: any) {
         console.log(error)
